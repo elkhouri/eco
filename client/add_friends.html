@@ -1,0 +1,15 @@
+<template name="addFriends">
+  <h1>Select Friends to Add</h1>
+  <form id="addFriendsForm">
+    <label>Name Your Group of Friends</label>
+    <input type='text' class='form-control' id='groupName' required>
+    {{#each friends }}
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="{{id}}_{{name}}">{{ name }}
+      </label>
+    </div>
+    {{/each}}
+    <button type='submit'>Add</button>
+  </form>
+</template>
