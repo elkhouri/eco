@@ -6,7 +6,11 @@ Router.configure({
 Router.map(function () {
   this.route('home', {
     path: '/',
-    template: 'main'
+    template: 'main',
+    onBeforeAction: function () {
+      this.subscribe('Groups', Meteor.userId()).wait();
+      this.subscribe('Posts', Meteor.userId()).wait();
+    }
   });
   this.route('add-friends', {
     path: 'add-friends',

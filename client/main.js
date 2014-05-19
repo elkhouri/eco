@@ -4,6 +4,19 @@
 Meteor.subscribe('Posts', Meteor.userId());
 Meteor.subscribe('Groups', Meteor.userId());
 
+// Initialize default groups
+Deps.autorun(function (c) {
+  if(!Groups.find().fetch()[0]){
+    return;
+  }
+
+  var g = Groups.find().fetch()[0]._id;
+  Session.setDefault('leftGroup', g);
+  Session.setDefault('rightGroup', g);
+  c.stop();
+});
+
+
 // Post Area Scripts
 Template.postArea.groups = function () {
   return Groups.find();
@@ -26,7 +39,7 @@ Template.postArea.events({
   }
 });
 
-
+//Session.setDefault('leftGroup', Groups.findOne().fetch()._id);
 // Main Area Scripts
 Template.main.groups = function () {
   return Groups.find();
