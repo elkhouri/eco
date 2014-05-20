@@ -13,21 +13,22 @@
       OAuth.initialize('S6i3fJXQNTUm7A6opZsJPA_1mto', {
         cache: true
       });
-      $urlRouterProvider.otherwise("/");
+      
+      $urlRouterProvider.otherwise('/');
 
       $stateProvider
         .state('main', {
-          url: "/",
+          url: '/',
           templateUrl: 'template/main.html',
           controller: 'MainCtrl'
         })
         .state('addFriends', {
-          url: "/add-friends",
+          url: '/add-friends',
           templateUrl: 'template/add_friends.html',
           controller: 'FriendsCtrl'
         })
         .state('groups', {
-          url: "/groups",
+          url: '/groups',
           templateUrl: 'template/groups.html',
           controller: 'GroupsCtrl'
         });

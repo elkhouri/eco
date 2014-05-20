@@ -29,7 +29,7 @@
     $scope.groupName = '';
 
     function getFriends() {
-      me.facebook.get("/me/friends")
+      me.facebook.get('/me/friends')
         .done(function (friends) {
           $scope.$apply(function () {
             $scope.friends = friends.data;

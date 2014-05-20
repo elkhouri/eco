@@ -3,7 +3,7 @@
 
   var app = angular.module('eco.services', []);
 
-  app.factory('UserService', function ($q, $rootScope) {
+  app.factory('UserService', function ($q) {
     var factory = {};
     var me = {
       facebook: OAuth.create('facebook')

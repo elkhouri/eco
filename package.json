@@ -1,8 +1,11 @@
 {
-  "name": "angular-express",
+  "name": "eco",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "latest"
+    "express": "~4.2.0"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
