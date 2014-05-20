@@ -1,0 +1,18 @@
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+  cursor: pointer;
+}
+.form-horizontal {
+  padding-top: 10px;
+}
+.tab-content {
+ background: #eee;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+ background: #eee;
+}
+.jumbotron {
+  margin-top: 10px !important;
+}

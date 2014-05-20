@@ -1,0 +1,11 @@
+<div class="panel panel-default" ng-repeat='group in groups'>
+  <div class="panel-heading">
+    <h3 class="panel-title" ng-bind='group.name'></h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li ng-repeat='member in group.members' ng-bind='member.name'></li>
+    </ul>
+  </div>
+</div>
+
