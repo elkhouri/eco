@@ -1,6 +1,6 @@
 ECO
 ------
-All you need is node.js
+All you need is node.js. Or not, since there's practically no server-side code, so you can even do it with python -m SimpleHTTPServer 
 * npm install
 * node server.js
 * [localhost:3000](http://localhost:3000)
