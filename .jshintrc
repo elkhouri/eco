@@ -43,6 +43,7 @@
     "spyOnEvent"           : false,
     "waitsFor"             : false,
     "xdescribe"            : false,
-    "OAuth"                : false
+    "OAuth"                : false,
+    "Firebase"             : false
   }
 }

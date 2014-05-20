@@ -3,6 +3,8 @@
 
   var app = angular.module('eco.services', []);
 
+  var userRef = new Firebase('https://eco.firebaseio.com/users');
+
   app.factory('UserService', function ($q) {
     var factory = {};
     var me = {

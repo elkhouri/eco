@@ -3,7 +3,7 @@
 
   angular.module('eco', [
     'ui.router',
-    'ui.bootstrap.tabs',
+    'firebase',
     'eco.controllers',
     'eco.filters',
     'eco.services',

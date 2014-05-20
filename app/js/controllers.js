@@ -3,19 +3,18 @@
 
   var app = angular.module('eco.controllers', []);
 
-  app.controller('MainCtrl', function ($scope, UserService, GroupService, PostService) {
-    var me = UserService.me();
+  app.controller('MainCtrl', function ($scope, $firebase, UserService, GroupService, PostService) {
     $scope.loggedIn = UserService.loggedIn;
     $scope.login = UserService.login;
     $scope.logout = UserService.logout;
     $scope.groups = GroupService.getGroups();
     $scope.posts = PostService.getPosts();
-    
+
     $scope.postGroup = {};
     $scope.postText = '';
     $scope.currentGroup = {};
-    
-    $scope.makePost = function(){
+
+    $scope.makePost = function () {
       PostService.makePost($scope.postText, $scope.postGroup);
     };
   });
@@ -36,17 +35,17 @@
           });
         });
     }
-    
+
     if ($scope.loggedIn()) {
       getFriends();
     }
-    
-    $scope.addGroup = function (){
+
+    $scope.addGroup = function () {
       GroupService.addGroup($scope.groupName, $scope.checked);
     };
 
   });
-  
+
   app.controller('GroupsCtrl', function ($scope, GroupService) {
     $scope.groups = GroupService.getGroups();
   });
