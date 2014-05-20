@@ -3,87 +3,104 @@
 
   var app = angular.module('eco.services', []);
 
+  var firebaseRef = new Firebase('https://eco.firebaseio.com');
   var userRef = new Firebase('https://eco.firebaseio.com/users');
 
-  app.factory('UserService', function ($q) {
+  app.factory('UserService', function ($q, $firebaseSimpleLogin, $http) {
     var factory = {};
+    var auth = $firebaseSimpleLogin(firebaseRef);
     var me = {
-      facebook: OAuth.create('facebook')
+      facebook: null,
+      fbFriends: []
     };
 
-    factory.me = function () {
+    function getFriends() {
+      $http.get('https://graph.facebook.com/v1.0/me/friends', {
+        params: {
+          access_token: me.facebook.accessToken
+        }
+      }).then(function (friends) {
+        me.fbFriends = friends.data.data;
+      });
+    }
+
+    auth.$getCurrentUser().then(function (user) {
+      if (user !== null) {
+        me.facebook = user;
+        getFriends();
+      }
+    });
+
+    factory.getMe = function () {
       return me;
     };
 
-    factory.loggedIn = function (){
-      return me.facebook !== false; 
+    factory.loggedIn = function () {
+      return me.facebook !== null;
     };
 
     factory.login = function () {
-      var d = $q.defer();
-      
-      OAuth.popup('facebook', function(err, result) {
-        d.resolve(result);
-      });
-      
-      d.promise.then(function(result){
-        me.facebook = result;
+      auth.$login('facebook', {
+        rememberMe: true
+      }).then(function (user) {
+        me.facebook = user;
+        getFriends();
       });
     };
-    
+
     factory.logout = function () {
-      OAuth.clearCache('facebook');
-      me.facebook = false;
+      me.facebook = null;
+      auth.$logout();
     };
-    
+
     return factory;
   });
-  
-  app.factory('GroupService', function(){
+
+  app.factory('GroupService', function () {
     var factory = {};
     var groups = [];
-    
+
     factory.getGroups = function () {
       return groups;
     };
-    
+
     factory.addGroup = function (name, members) {
       var membersList = [];
-      
-      for( var idKey in members){
+
+      for (var idKey in members) {
         var m = JSON.parse(members[idKey]);
         membersList.push({
           name: m.name,
           id: m.id
         });
       }
-      
+
       groups.push({
         name: name,
         members: membersList
       });
-      
+
     };
-    
+
     return factory;
   });
-  
-  app.factory('PostService', function(){
+
+  app.factory('PostService', function () {
     var factory = {};
     var posts = [];
-    
-    factory.getPosts = function(){
-      return posts; 
+
+    factory.getPosts = function () {
+      return posts;
     };
-    
-    factory.makePost = function(text, group){
+
+    factory.makePost = function (text, group) {
       posts.push({
         text: text,
         group: group
       });
     };
-    
+
     return factory;
   });
-  
+
 }());

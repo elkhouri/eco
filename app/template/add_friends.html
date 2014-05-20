@@ -2,7 +2,7 @@
 <form id="addFriendsForm">
   <label>Name Your Group of Friends</label>
   <input type='text' class='form-control' ng-model='groupName' required>
-  <div class="checkbox" ng-repeat='friend in friends'>
+  <div class="checkbox" ng-repeat='friend in me.fbFriends'>
     <label>
       <input type="checkbox" ng-model="$parent.checked[friend.id]" 
              ng-true-value="{{ friend }}">{{friend.name}}

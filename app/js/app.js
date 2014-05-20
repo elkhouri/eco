@@ -10,10 +10,6 @@
     'eco.directives'
   ])
     .config(function ($stateProvider, $urlRouterProvider) {
-      OAuth.initialize('S6i3fJXQNTUm7A6opZsJPA_1mto', {
-        cache: true
-      });
-      
       $urlRouterProvider.otherwise('/');
 
       $stateProvider

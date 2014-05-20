@@ -3,7 +3,7 @@
 
   var app = angular.module('eco.controllers', []);
 
-  app.controller('MainCtrl', function ($scope, $firebase, UserService, GroupService, PostService) {
+  app.controller('MainCtrl', function ($scope, UserService, GroupService, PostService) {
     $scope.loggedIn = UserService.loggedIn;
     $scope.login = UserService.login;
     $scope.logout = UserService.logout;
@@ -20,25 +20,9 @@
   });
 
   app.controller('FriendsCtrl', function ($scope, UserService, GroupService) {
-    var me = UserService.me();
-    $scope.loggedIn = UserService.loggedIn;
-
-    $scope.friends = [];
     $scope.checked = {};
     $scope.groupName = '';
-
-    function getFriends() {
-      me.facebook.get('/me/friends')
-        .done(function (friends) {
-          $scope.$apply(function () {
-            $scope.friends = friends.data;
-          });
-        });
-    }
-
-    if ($scope.loggedIn()) {
-      getFriends();
-    }
+    $scope.me = UserService.getMe();
 
     $scope.addGroup = function () {
       GroupService.addGroup($scope.groupName, $scope.checked);
