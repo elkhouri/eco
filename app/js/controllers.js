@@ -14,9 +14,18 @@
     $scope.postGroup = {};
     $scope.postText = '';
     $scope.currentGroup = {};
+    $scope.groupTab = -1;
 
     $scope.makePost = function () {
       PostService.makePost($scope.postText, $scope.postGroup);
+    };
+
+    $scope.switchTab = function (index) {
+      if (index === $scope.groupTab) {
+        $scope.groupTab = -1;
+      } else {
+        $scope.groupTab = index;
+      }
     };
   });
 

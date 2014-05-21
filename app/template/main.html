@@ -35,8 +35,8 @@
 
   <div class='col-sm-3'>
     <div ng-repeat='group in groups' ng-init='currentGroup = -1'>
-      <h3 ng-click='$parent.currentGroup = $index'> {{group.name }}</h3>
-      <div ng-show='$parent.currentGroup == $index'>
+      <h3 ng-click='switchTab($index)'> {{group.name }}</h3>
+      <div ng-show='$parent.groupTab == $index'>
         <div ng-repeat='member in group.members'>
           <div class='row'>
             <div class='col-sm-10'>
@@ -45,7 +45,6 @@
             <div class='col-sm-2'>
               <button>Delete</button>
             </div>
-
           </div>
         </div>
       </div>
