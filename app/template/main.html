@@ -33,13 +33,46 @@
   </form>
   <br>
 
-  <div class='col-sm-offset-3 col-sm-6'>
+  <div class='col-sm-3'>
+    <div ng-repeat='group in groups' ng-init='currentGroup = -1'>
+      <h3 ng-click='$parent.currentGroup = $index'> {{group.name }}</h3>
+      <div ng-show='$parent.currentGroup == $index'>
+        <div ng-repeat='member in group.members'>
+          <div class='row'>
+            <div class='col-sm-10'>
+              {{member.name}}
+            </div>
+            <div class='col-sm-2'>
+              <button>Delete</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-sm-7'>
     <select ng-options='group.name for group in groups' ng-model='currentGroup'>
     </select>
     <div ng-repeat='post in posts | filter: {group: currentGroup}'>
       <div class="panel panel-default">
         <div class="panel-body">
           {{ post.text }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-sm-2'>
+    <button class='btn btn-default' ng-click='showFriends = !showFriends'>Show Friends</button>
+    <div ng-repeat='friend in me.fbFriends' ng-show='showFriends'>
+      <div class='row'>
+        <div class='col-sm-2'>
+          <button>Add</button>
+        </div>
+        <div class='col-sm-10'>
+          {{friend.name}}
         </div>
       </div>
     </div>

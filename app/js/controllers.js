@@ -9,6 +9,7 @@
     $scope.logout = UserService.logout;
     $scope.groups = GroupService.getGroups();
     $scope.posts = PostService.getPosts();
+    $scope.me = UserService.getMe();
 
     $scope.postGroup = {};
     $scope.postText = '';

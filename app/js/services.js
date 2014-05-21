@@ -56,6 +56,10 @@
     return factory;
   });
 
+  app.factory('FriendService', function() {
+
+  });
+
   app.factory('GroupService', function () {
     var factory = {};
     var groups = [];
