@@ -18,7 +18,7 @@
     };
   });
 
-  app.controller('MainCtrl', function ($scope, UserService, GroupService, PostService) {
+  app.controller('MainCtrl', function ($scope, $modal, UserService, GroupService, PostService) {
     $scope.groups = GroupService.getGroups();
     $scope.posts = PostService.getPosts();
     $scope.me = UserService.getMe();
@@ -39,21 +39,22 @@
         $scope.groupTab = index;
       }
     };
-  });
 
-  app.controller('FriendsCtrl', function ($scope, UserService, GroupService) {
-    $scope.checked = {};
-    $scope.groupName = '';
-    $scope.me = UserService.getMe();
-
-    $scope.addGroup = function () {
-      GroupService.addGroup($scope.groupName, $scope.checked);
+    $scope.newGroup = {
+      name: '',
+      members: {}
     };
 
-  });
+    $scope.addGroupModal = function () {
+      var modalInstance = $modal.open({
+        templateUrl: 'template/add_group_modal.html',
+        scope: $scope
+      });
 
-  app.controller('GroupsCtrl', function ($scope, GroupService) {
-    $scope.groups = GroupService.getGroups();
+      modalInstance.result.then(function () {
+        GroupService.addGroup($scope.newGroup);
+      });
+    };
   });
 
 }());

@@ -33,6 +33,7 @@
 </div>
 
 <div class='col-sm-3'>
+  <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
   <div ng-repeat='group in groups'>
     <h3 ng-click='switchTab($index)'> {{group.name }}</h3>
     <div ng-show='$parent.groupTab == $index'>
@@ -64,7 +65,7 @@
 </div>
 
 <div class='col-sm-2'>
-  <button class='btn btn-default' ng-click='showFriends = !showFriends'>Show Friends</button>
+  <button class='btn btn-default' ng-click='showFriends = !showFriends'>Add Friends</button>
   <div ng-repeat='friend in me.fbFriends' ng-show='showFriends'>
     <div class='row'>
       <div class='col-sm-2'>

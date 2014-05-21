@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h3 class="modal-title">Select Friends to Add to a Group</h3>
+</div>
+
+<div class="modal-body">
+  <input type='text' class='form-control' ng-model='newGroup.name' required>
+
+  <div class="checkbox" ng-repeat='friend in me.fbFriends'>
+    <label>
+      <input type="checkbox" ng-model="$parent.newGroup.members[friend.id]" ng-true-value="{{ friend }}">{{friend.name}}
+    </label>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="$close()">OK</button>
+  <button class="btn btn-warning" ng-click="$dismiss()">Cancel</button>
+</div>

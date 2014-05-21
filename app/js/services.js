@@ -68,7 +68,9 @@
       return groups;
     };
 
-    factory.addGroup = function (name, members) {
+    factory.addGroup = function (newGroup) {
+      var name = newGroup.name;
+      var members = newGroup.members;
       var membersList = [];
 
       for (var idKey in members) {
