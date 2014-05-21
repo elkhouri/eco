@@ -33,7 +33,7 @@
 </div>
 
 <div class='col-sm-3'>
-  <div ng-repeat='group in groups' ng-init='currentGroup = -1'>
+  <div ng-repeat='group in groups'>
     <h3 ng-click='switchTab($index)'> {{group.name }}</h3>
     <div ng-show='$parent.groupTab == $index'>
       <div ng-repeat='member in group.members'>
