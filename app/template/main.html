@@ -1,20 +1,19 @@
 <div class="alert alert-danger" ng-if="error.text" ng-bind="error.text"></div>
-<div class="jumbotron">
-  <h2 ng-if="!loggedIn()">
+<div class="jumbotron" ng-if="!loggedIn()">
+  <h2>
     Hello, Please Login to Facebook
   </h2>
 
-  <button ng-if="!loggedIn()" class="btn btn-sm btn-primary" ng-click="login()">Login to Facebook</button>
-  <button ng-if="loggedIn()" class="btn btn-sm btn-danger" ng-click="logout('facebook')">Logout of Facebook</button>
-</div>
-
-<div class='col-sm-offset-5'>
-  <button class='btn btn-default' ng-click='posting = !posting'>Text</button>
-  <button class='btn btn-default' ng-click='posting = !posting'>Image</button>
-  <button class='btn btn-default' ng-click='posting = !posting'>Link</button>
+  <button  class="btn btn-sm btn-primary" ng-click="login()">Login to Facebook</button>
 </div>
 
 <div ng-show='loggedIn()'>
+  <div class='col-sm-offset-5'>
+    <button class='btn btn-default' ng-click='posting = !posting'>Text</button>
+    <button class='btn btn-default' ng-click='posting = !posting'>Image</button>
+    <button class='btn btn-default' ng-click='posting = !posting'>Link</button>
+  </div>
+
   <div ng-show='posting'>
     <form name='post_form'>
       <div class='row'>

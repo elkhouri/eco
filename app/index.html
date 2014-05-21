@@ -11,23 +11,35 @@
 </head>
 
 <body>
-  <div class="navbar navbar-default" role="navigation">
+  <div class="navbar navbar-default" role="navigation" ng-controller='AuthCtrl'>
     <div class="navbar-header">
       <a class="navbar-brand" href="/">Eco</a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/#/add-friends">Add Friends</a>
+        <li>
+          <a href="/#/add-friends">Add Friends</a>
         </li>
-        <li><a href="/#/groups">Groups</a>
+        <li>
+          <a href="/#/groups">Groups</a>
+        </li>
+      </ul>
+
+      <ul class='nav navbar-nav navbar-right'>
+        <li>
+          <a ng-show='loggedIn()' ng-click="logout()">Logout</a>
+        </li>
+        <li>
+          <a ng-show='!loggedIn()' ng-click="login()">Login</a>
         </li>
       </ul>
     </div>
+
   </div>
 
   <div class="container" ui-view></div>
 
-<!--  Not using jQuery right now
+  <!--  Not using jQuery right now
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>-->
 
   <!--  Main Angular lib -->

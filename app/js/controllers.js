@@ -3,6 +3,12 @@
 
   var app = angular.module('eco.controllers', []);
 
+  app.controller('AuthCtrl', function($scope, UserService) {
+    $scope.loggedIn = UserService.loggedIn;
+    $scope.login = UserService.login;
+    $scope.logout = UserService.logout;
+  });
+
   app.controller('MainCtrl', function ($scope, UserService, GroupService, PostService) {
     $scope.loggedIn = UserService.loggedIn;
     $scope.login = UserService.login;
