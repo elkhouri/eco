@@ -6,7 +6,7 @@
   var firebaseRef = new Firebase('https://eco.firebaseio.com');
   var userRef = new Firebase('https://eco.firebaseio.com/users');
 
-  app.factory('UserService', function ($q, $firebaseSimpleLogin, $http) {
+  app.factory('UserService', function ($q, $firebaseSimpleLogin, $http, $cookies) {
     var factory = {};
     var auth = $firebaseSimpleLogin(firebaseRef);
     var me = {
@@ -36,11 +36,11 @@
     };
 
     factory.loggedIn = function () {
-      return me.facebook !== null;
+      return $cookies.firebaseSessionKey ? true: false;
     };
 
     factory.login = function () {
-      auth.$login('facebook', {
+      return auth.$login('facebook', {
         rememberMe: true
       }).then(function (user) {
         me.facebook = user;

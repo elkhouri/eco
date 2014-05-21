@@ -3,16 +3,22 @@
 
   var app = angular.module('eco.controllers', []);
 
-  app.controller('AuthCtrl', function($scope, UserService) {
+  app.controller('AuthCtrl', function ($scope, $state, UserService) {
     $scope.loggedIn = UserService.loggedIn;
-    $scope.login = UserService.login;
-    $scope.logout = UserService.logout;
+
+    $scope.login = function () {
+      UserService.login().then(function () {
+        $state.go('main');
+      });
+    };
+
+    $scope.logout = function () {
+      UserService.logout();
+      $state.go('login');
+    };
   });
 
   app.controller('MainCtrl', function ($scope, UserService, GroupService, PostService) {
-    $scope.loggedIn = UserService.loggedIn;
-    $scope.login = UserService.login;
-    $scope.logout = UserService.logout;
     $scope.groups = GroupService.getGroups();
     $scope.posts = PostService.getPosts();
     $scope.me = UserService.getMe();
