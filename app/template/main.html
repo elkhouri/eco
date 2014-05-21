@@ -1,12 +1,12 @@
 <div class="alert alert-danger" ng-if="error.text" ng-bind="error.text"></div>
 
 <div class='col-sm-offset-5'>
-  <button class='btn btn-default' ng-click='posting = !posting'>Text</button>
-  <button class='btn btn-default' ng-click='posting = !posting'>Image</button>
-  <button class='btn btn-default' ng-click='posting = !posting'>Link</button>
+  <button class='btn btn-default' ng-click='isPosting = !isPosting'>Text</button>
+  <button class='btn btn-default' ng-click='isPosting = !isPosting'>Image</button>
+  <button class='btn btn-default' ng-click='isPosting = !isPosting'>Link</button>
 </div>
 
-<div ng-show='posting'>
+<div collapse='!isPosting'>
   <form name='post_form'>
     <div class='row'>
       <div class='col-sm-offset-3'>
@@ -36,19 +36,21 @@
   <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
   <div ng-repeat='group in groups'>
     <h3 ng-click='switchTab($index)'> {{group.name }}</h3>
-    <div ng-show='$parent.groupTab == $index'>
+    <div collapse='$parent.groupTab !== $index'>
       <div ng-repeat='member in group.members'>
         <div class='row'>
-          <div class='col-sm-10'>
+          <div class='col-sm-6'>
             {{member.name}}
           </div>
-          <div class='col-sm-2'>
+          <div class='col-sm-3'>
             <button>Delete</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <h3 ng-if='!groups.length'>No Groups. Add One!</h3>
 </div>
 
 <div class='col-sm-7'>
@@ -66,7 +68,7 @@
 
 <div class='col-sm-2'>
   <button class='btn btn-default' ng-click='showFriends = !showFriends'>Add Friends</button>
-  <div ng-repeat='friend in me.fbFriends' ng-show='showFriends'>
+  <div ng-repeat='friend in me.fbFriends' collapse='!showFriends'>
     <div class='row'>
       <div class='col-sm-2'>
         <button>Add</button>
