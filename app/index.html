@@ -17,16 +17,12 @@
         <a class="navbar-brand" href="/">Eco</a>
       </div>
 
-      <div ng-show='loggedIn()'>
-        <ul class='nav navbar-nav navbar-right'>
-          <li>
-            <a ng-show='loggedIn()' ng-click="logout()">Logout</a>
-          </li>
-          <li>
-            <a ng-show='!loggedIn()' ng-click="login()">Login</a>
-          </li>
-        </ul>
-      </div>
+      <ul class='nav navbar-nav navbar-right' ng-show='loggedIn()'>
+        <li>
+          <a ng-click="logout()">Logout</a>
+        </li>
+      </ul>
+
     </div>
   </div>
 

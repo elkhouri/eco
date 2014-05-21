@@ -1,34 +1,34 @@
 <div class="alert alert-danger" ng-if="error.text" ng-bind="error.text"></div>
 
 <div class='col-sm-offset-5'>
+  <!--  All buttons bring up the same form for now-->
   <button class='btn btn-default' ng-click='isPosting = !isPosting'>Text</button>
   <button class='btn btn-default' ng-click='isPosting = !isPosting'>Image</button>
   <button class='btn btn-default' ng-click='isPosting = !isPosting'>Link</button>
 </div>
 
 <div collapse='!isPosting'>
-  <form name='post_form'>
-    <div class='row'>
-      <div class='col-sm-offset-3'>
-        <label for='postArea'>Post</label>
-      </div>
+  <div class='row'>
+    <div class='col-sm-offset-3 col-sm-3'>
+      <label for='postArea'>Post</label>
     </div>
-    <div class='row'>
-      <div class='col-sm-offset-3 col-sm-6'>
-        <textarea class="form-control" rows="3" ng-model='postText'></textarea>
-      </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-offset-3 col-sm-3'>
+      <textarea class="form-control" rows="3" ng-model='postText'></textarea>
     </div>
-    <div class='row'>
-      <div class='col-sm-offset-3 col-sm-1'>
-        <button type='submit' class='btn btn-default' ng-click='makePost()'>Post</button>
-      </div>
-      <div class='col-sm-3'>
-        <label>Group:</label>
-        <select id='postGroup' ng-model='postGroup' ng-options='group.name for group in groups'>
-        </select>
-      </div>
+    <div class='col-sm-3'>
+      <label>Group:</label>
+      <select multiple id='postGroup' ng-model='postGroup' ng-options='group.name for group in groups'>
+      </select>
     </div>
-  </form>
+  </div>
+  <div class='row'>
+    <div class='col-sm-offset-3 col-sm-1'>
+      <button type='submit' class='btn btn-default' ng-click='makePost()'>Post</button>
+    </div>
+
+  </div>
   <br>
 </div>
 

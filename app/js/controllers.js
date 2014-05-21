@@ -53,6 +53,10 @@
 
       modalInstance.result.then(function () {
         GroupService.addGroup($scope.newGroup);
+        $scope.newGroup = {
+          name: '',
+          members: {}
+        };
       });
     };
   });
