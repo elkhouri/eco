@@ -107,6 +107,10 @@
 
     };
 
+    factory.removeGroup = function (groupId){
+      groups.$remove(groupId);
+    };
+
     return factory;
   });
 

@@ -30,10 +30,18 @@
   <br>
 </div>
 
-<div class='col-sm-3'>
+<div class='col-sm-3' ng-controller='GroupsCtrl'>
   <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
-  <div ng-repeat='group in groups'>
-    <h3 ng-click='switchTab($index)'> {{group.name }}</h3>
+
+  <div ng-repeat='(groupId, group) in groups'>
+    <div class='row'>
+      <div class='col-sm-3'>
+        <h3 ng-click='switchTab($index)'> {{ group.name }}</h3>
+      </div>
+      <div class='col-sm-3'>
+        <a class='btn btn-danger' ng-click='removeGroup(groupId)'>Delete</a>
+      </div>
+    </div>
     <div collapse='$parent.groupTab !== $index'>
       <div ng-repeat='member in group.members'>
         <div class='row'>

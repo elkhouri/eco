@@ -18,7 +18,7 @@
     };
   });
 
-  app.controller('MainCtrl', function ($scope, $modal, User, Friends, Groups, Posts) {
+  app.controller('MainCtrl', function ($scope, User, Friends, Groups, Posts) {
     $scope.groups = Groups.getGroups();
     $scope.posts = Posts.getPosts();
     $scope.me = User.getMe();
@@ -26,24 +26,19 @@
     $scope.postGroup = {};
     $scope.postText = '';
     $scope.currentGroup = {};
-    $scope.groupTab = -1;
 
     $scope.makePost = function () {
       Posts.makePost($scope.postText, $scope.postGroup);
     };
 
-    $scope.switchTab = function (index) {
-      if (index === $scope.groupTab) {
-        $scope.groupTab = -1;
-      } else {
-        $scope.groupTab = index;
-      }
-    };
+  });
 
+  app.controller('GroupsCtrl', function ($scope, $modal, Groups) {
     $scope.newGroup = {
       name: '',
       members: {}
     };
+    $scope.groupTab = -1;
 
     $scope.addGroupModal = function () {
       var modalInstance = $modal.open({
@@ -59,6 +54,16 @@
         };
       });
     };
+
+    $scope.switchTab = function (index) {
+      if (index === $scope.groupTab) {
+        $scope.groupTab = -1;
+      } else {
+        $scope.groupTab = index;
+      }
+    };
+
+    $scope.removeGroup = Groups.removeGroup;
   });
 
 }());
