@@ -94,9 +94,9 @@
       var name = newGroup.name;
       var members = newGroup.members;
 
-      _.each(members, function(v, k){
-        if(!v) {
-          delete members[k];
+      _.each(members, function (name, id) {
+        if (!name) {
+          delete members[id];
         }
       });
 
@@ -107,25 +107,49 @@
 
     };
 
-    factory.removeGroup = function (groupId){
+    factory.removeGroup = function (groupId) {
       groups.$remove(groupId);
     };
 
     return factory;
   });
 
-  app.factory('Posts', function () {
-    var factory = {};
+  app.factory('Posts', function ($firebase, User) {
+    var allPostsRef = new Firebase(FIREBASE_URL + 'posts');
+    var postsIndexRef = new Firebase(FIREBASE_URL + 'posts_index');
+    var viewablePosts = $firebase(postsIndexRef).$child(User.getId());
+    var allPosts = $firebase(allPostsRef);
     var posts = [];
+    var factory = {};
+
+    factory.find = function (postId) {
+      var post = allPosts.$child(postId);
+      return post;
+    };
 
     factory.getPosts = function () {
+      viewablePosts.$on('child_added', function (post) {
+        posts.push(factory.find(post.snapshot.name));
+      });
+
       return posts;
     };
 
-    factory.makePost = function (text, group) {
-      posts.push({
+    factory.makePost = function (text, groups) {
+      var groupsObj = {};
+      groups.forEach(function (group) {
+        groupsObj[group.id] = group.name;
+      });
+
+      allPosts.$add({
         text: text,
-        group: group
+        userId: User.getId(),
+        groups: groupsObj
+      }).then(function (ref) {
+        viewablePosts.$child(ref.name()).$set({
+          userId: User.getId(),
+
+        });
       });
     };
 
