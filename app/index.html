@@ -26,6 +26,8 @@
     </div>
   </div>
 
+  <div class="alert alert-danger" ng-if="error.text" ng-bind="error.text"></div>
+
   <div class="container" ui-view></div>
 
   <!--  Not using jQuery right now

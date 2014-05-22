@@ -3,25 +3,25 @@
 
   var app = angular.module('eco.controllers', []);
 
-  app.controller('AuthCtrl', function ($scope, $state, UserService) {
-    $scope.loggedIn = UserService.loggedIn;
+  app.controller('AuthCtrl', function ($scope, $state, User) {
+    $scope.loggedIn = User.loggedIn;
 
     $scope.login = function () {
-      UserService.login().then(function () {
+      User.login().then(function () {
         $state.go('main');
       });
     };
 
     $scope.logout = function () {
-      UserService.logout();
+      User.logout();
       $state.go('login');
     };
   });
 
-  app.controller('MainCtrl', function ($scope, $modal, UserService, GroupService, PostService) {
-    $scope.groups = GroupService.getGroups();
-    $scope.posts = PostService.getPosts();
-    $scope.me = UserService.getMe();
+  app.controller('MainCtrl', function ($scope, $modal, User, Friends, Groups, Posts) {
+    $scope.groups = Groups.getGroups();
+    $scope.posts = Posts.getPosts();
+    $scope.me = User.getMe();
 
     $scope.postGroup = {};
     $scope.postText = '';
@@ -29,7 +29,7 @@
     $scope.groupTab = -1;
 
     $scope.makePost = function () {
-      PostService.makePost($scope.postText, $scope.postGroup);
+      Posts.makePost($scope.postText, $scope.postGroup);
     };
 
     $scope.switchTab = function (index) {
@@ -52,7 +52,7 @@
       });
 
       modalInstance.result.then(function () {
-        GroupService.addGroup($scope.newGroup);
+        Groups.addGroup($scope.newGroup);
         $scope.newGroup = {
           name: '',
           members: {}

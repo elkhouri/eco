@@ -4,30 +4,27 @@
   var app = angular.module('eco.services', []);
 
   var firebaseRef = new Firebase('https://eco.firebaseio.com');
-  var userRef = new Firebase('https://eco.firebaseio.com/users');
+  var usersRef = new Firebase('https://eco.firebaseio.com/users');
 
-  app.factory('UserService', function ($q, $firebaseSimpleLogin, $http, $cookies) {
+  app.factory('User', function ($firebase, $firebaseSimpleLogin, $cookies) {
     var factory = {};
+    var me = {};
     var auth = $firebaseSimpleLogin(firebaseRef);
-    var me = {
-      facebook: null,
-      fbFriends: []
-    };
+    var users = $firebase(usersRef);
 
-    function getFriends() {
-      $http.get('https://graph.facebook.com/v1.0/me/friends', {
-        params: {
-          access_token: me.facebook.accessToken
-        }
-      }).then(function (friends) {
-        me.fbFriends = friends.data.data;
-      });
+    function createUser(user) {
+      users[user.uid] = {
+        name: user.displayName,
+        fbId: user.id,
+        $priority: user.uid
+      };
+
+      users.$save();
     }
 
     auth.$getCurrentUser().then(function (user) {
       if (user !== null) {
         me.facebook = user;
-        getFriends();
       }
     });
 
@@ -36,7 +33,7 @@
     };
 
     factory.loggedIn = function () {
-      return $cookies.firebaseSessionKey ? true: false;
+      return $cookies.firebaseSessionKey ? true : false;
     };
 
     factory.login = function () {
@@ -44,23 +41,42 @@
         rememberMe: true
       }).then(function (user) {
         me.facebook = user;
-        getFriends();
+        if(users.$child(user.uid).$getIndex().length === 0){
+          createUser(user);
+        }
+
       });
     };
 
     factory.logout = function () {
-      me.facebook = null;
+      me = null;
       auth.$logout();
     };
 
     return factory;
   });
 
-  app.factory('FriendService', function() {
+  app.factory('Friends', function ($rootScope, $http, User) {
+    var factory = {};
 
+    function getFbFriends(accessToken) {
+      $http.get('https://graph.facebook.com/v1.0/me/friends', {
+        params: {
+          access_token: accessToken
+        }
+      }).then(function (friends) {
+        User.getMe().fbFriends = friends.data.data;
+      });
+    }
+
+    $rootScope.$on('$firebaseSimpleLogin:login', function (e, authUser) {
+      getFbFriends(authUser.accessToken);
+    });
+
+    return factory;
   });
 
-  app.factory('GroupService', function () {
+  app.factory('Groups', function () {
     var factory = {};
     var groups = [];
 
@@ -91,7 +107,7 @@
     return factory;
   });
 
-  app.factory('PostService', function () {
+  app.factory('Posts', function () {
     var factory = {};
     var posts = [];
 

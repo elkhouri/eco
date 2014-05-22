@@ -38,9 +38,9 @@
       });
   });
 
-  app.run(function ($rootScope, $state, UserService) {
+  app.run(function ($rootScope, $state, User) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-      if (toState.name !== 'login' && !UserService.loggedIn()) {
+      if (toState.name !== 'login' && !User.loggedIn()) {
         event.preventDefault();
         $state.go('login');
       }
