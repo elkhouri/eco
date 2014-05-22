@@ -17,7 +17,7 @@
     </div>
     <div class='col-sm-3'>
       <label>Group:</label>
-      <select multiple id='postGroup' ng-model='postGroup' ng-options='group.name for group in groups'>
+      <select multiple ng-options='group.name for (groupId, group) in groups' ng-model='postGroup'>
       </select>
     </div>
   </div>
