@@ -43,6 +43,7 @@
     "waitsFor"             : false,
     "xdescribe"            : false,
     "OAuth"                : false,
-    "Firebase"             : false
+    "Firebase"             : false,
+    "_"                    : false
   }
 }
