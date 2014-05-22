@@ -14,7 +14,7 @@
 
   <div class="checkbox" ng-repeat='friend in me.fbFriends'>
     <label>
-      <input type="checkbox" ng-model="$parent.newGroup.members[friend.id]" ng-true-value="{{ friend }}">{{friend.name}}
+      <input type="checkbox" ng-model="$parent.newGroup.members[friend.id]" ng-true-value="{{ friend.name }}">{{friend.name}}
     </label>
   </div>
 </div>

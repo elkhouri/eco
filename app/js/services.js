@@ -3,14 +3,15 @@
 
   var app = angular.module('eco.services', []);
 
-  var firebaseRef = new Firebase('https://eco.firebaseio.com');
-  var usersRef = new Firebase('https://eco.firebaseio.com/users');
+  var FIREBASE_URL = 'https://eco.firebaseio.com/';
 
   app.factory('User', function ($firebase, $firebaseSimpleLogin, $cookies) {
+    var auth = $firebaseSimpleLogin(new Firebase(FIREBASE_URL));
+    var usersRef = new Firebase(FIREBASE_URL + 'users');
+    var users = $firebase(usersRef);
+
     var factory = {};
     var me = {};
-    var auth = $firebaseSimpleLogin(firebaseRef);
-    var users = $firebase(usersRef);
 
     function createUser(user) {
       users[user.uid] = {
@@ -22,14 +23,20 @@
       users.$save();
     }
 
-    auth.$getCurrentUser().then(function (user) {
-      if (user !== null) {
-        me.facebook = user;
-      }
-    });
+    factory.checkAuth = function () {
+      return auth.$getCurrentUser().then(function (user) {
+        if (user !== null) {
+          me.facebook = user;
+        }
+      });
+    };
 
     factory.getMe = function () {
       return me;
+    };
+
+    factory.getId = function () {
+      return me.facebook.uid;
     };
 
     factory.loggedIn = function () {
@@ -41,7 +48,7 @@
         rememberMe: true
       }).then(function (user) {
         me.facebook = user;
-        if(users.$child(user.uid).$getIndex().length === 0){
+        if (users.$child(user.uid).$getIndex().length === 0) {
           createUser(user);
         }
 
@@ -69,16 +76,15 @@
       });
     }
 
-    $rootScope.$on('$firebaseSimpleLogin:login', function (e, authUser) {
-      getFbFriends(authUser.accessToken);
-    });
+    getFbFriends(User.getMe().facebook.accessToken);
 
     return factory;
   });
 
-  app.factory('Groups', function () {
+  app.factory('Groups', function ($firebase, User) {
+    var groupsRef = new Firebase(FIREBASE_URL + 'groups');
+    var groups = $firebase(groupsRef).$child(User.getId());
     var factory = {};
-    var groups = [];
 
     factory.getGroups = function () {
       return groups;
@@ -87,19 +93,16 @@
     factory.addGroup = function (newGroup) {
       var name = newGroup.name;
       var members = newGroup.members;
-      var membersList = [];
 
-      for (var idKey in members) {
-        var m = JSON.parse(members[idKey]);
-        membersList.push({
-          name: m.name,
-          id: m.id
-        });
-      }
+      _.each(members, function(v, k){
+        if(!v) {
+          delete members[k];
+        }
+      });
 
-      groups.push({
+      groups.$add({
         name: name,
-        members: membersList
+        members: members
       });
 
     };

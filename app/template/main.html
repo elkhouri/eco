@@ -38,7 +38,7 @@
       <div ng-repeat='member in group.members'>
         <div class='row'>
           <div class='col-sm-6'>
-            {{member.name}}
+            {{member}}
           </div>
           <div class='col-sm-3'>
             <button>Delete</button>
@@ -48,7 +48,8 @@
     </div>
   </div>
 
-  <h3 ng-if='!groups.length'>No Groups. Add One!</h3>
+
+  <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
 </div>
 
 <div class='col-sm-7'>
