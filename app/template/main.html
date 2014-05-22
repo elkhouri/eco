@@ -56,14 +56,15 @@
     </div>
   </div>
 
-
   <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
 </div>
 
 <div class='col-sm-7'>
   <label>Filter by Group:</label>
-  <select ng-options='group.name for group in groups' ng-model='currentGroup'>
+
+  <select ng-options='group.name for (groupId, group) in groups' ng-model='currentGroup'>
   </select>
+
   <div ng-repeat='post in posts | filter: {group: currentGroup}'>
     <div class="panel panel-default">
       <div class="panel-body">

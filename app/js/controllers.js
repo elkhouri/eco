@@ -25,7 +25,10 @@
 
     $scope.postGroup = {};
     $scope.postText = '';
-    $scope.currentGroup = {};
+
+    $scope.groups.$on('loaded', function(){
+      $scope.currentGroup = $scope.groups[$scope.groups.$getIndex()[0]];
+    });
 
     $scope.makePost = function () {
       Posts.makePost($scope.postText, $scope.postGroup);
