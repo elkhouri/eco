@@ -4,7 +4,6 @@
   var app = angular.module('eco.services', []);
 
   var FIREBASE_URL = 'https://eco.firebaseio.com/';
-//  var firebaseUserUrl;
 
   app.factory('User', function ($firebase, $firebaseSimpleLogin, $cookies) {
     var auth = $firebaseSimpleLogin(new Firebase(FIREBASE_URL));
@@ -17,7 +16,6 @@
     function createUser(user) {
       users[user.uid] = {
         name: user.displayName,
-        fbId: user.id,
         $priority: user.uid
       };
 
@@ -38,6 +36,10 @@
 
     factory.getId = function () {
       return me.facebook.uid;
+    };
+
+    factory.getUrl = function () {
+      return FIREBASE_URL + 'users/' + factory.getId() + '/';
     };
 
     factory.loggedIn = function () {
@@ -83,7 +85,7 @@
   });
 
   app.factory('Group', function ($firebase, User) {
-    var groupsRef = new Firebase(FIREBASE_URL + 'users/' + User.getId() + '/groups');
+    var groupsRef = new Firebase(User.getUrl() + '/groups');
     var groups = $firebase(groupsRef);
     var factory = {};
 
@@ -101,8 +103,7 @@
         }
       });
 
-      groups.$add({
-        name: name,
+      groups.$child(name).$set({
         members: members
       });
 
@@ -138,9 +139,11 @@
 
     factory.add = function (text, groups) {
       var groupsObj = {};
-      groups.forEach(function (group) {
-        groupsObj[group.id] = group.name;
-      });
+      if (groups.length > 0) {
+        groups.forEach(function (group) {
+          groupsObj[group.name] = group.name;
+        });
+      }
 
       allPosts.$add({
         text: text,
@@ -148,8 +151,7 @@
         groups: groupsObj
       }).then(function (ref) {
         viewablePosts.$child(ref.name()).$set({
-          userId: User.getId(),
-
+          userId: User.getId()
         });
       });
     };
