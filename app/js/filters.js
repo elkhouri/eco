@@ -4,7 +4,7 @@
 
 var app = angular.module('eco.filters', []);
 
-app.filter('filterByGroup', function (Posts) {
+app.filter('filterByGroup', function (Post) {
   return function (posts, group) {
     var filteredPosts = [];
 

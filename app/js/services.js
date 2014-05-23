@@ -4,6 +4,7 @@
   var app = angular.module('eco.services', []);
 
   var FIREBASE_URL = 'https://eco.firebaseio.com/';
+//  var firebaseUserUrl;
 
   app.factory('User', function ($firebase, $firebaseSimpleLogin, $cookies) {
     var auth = $firebaseSimpleLogin(new Firebase(FIREBASE_URL));
@@ -63,7 +64,7 @@
     return factory;
   });
 
-  app.factory('Friends', function ($rootScope, $http, User) {
+  app.factory('Friend', function ($rootScope, $http, User) {
     var factory = {};
 
     function getFbFriends(accessToken) {
@@ -81,16 +82,16 @@
     return factory;
   });
 
-  app.factory('Groups', function ($firebase, User) {
-    var groupsRef = new Firebase(FIREBASE_URL + 'groups');
-    var groups = $firebase(groupsRef).$child(User.getId());
+  app.factory('Group', function ($firebase, User) {
+    var groupsRef = new Firebase(FIREBASE_URL + 'users/' + User.getId() + '/groups');
+    var groups = $firebase(groupsRef);
     var factory = {};
 
-    factory.getGroups = function () {
+    factory.all = function () {
       return groups;
     };
 
-    factory.addGroup = function (newGroup) {
+    factory.add = function (newGroup) {
       var name = newGroup.name;
       var members = newGroup.members;
 
@@ -107,14 +108,14 @@
 
     };
 
-    factory.removeGroup = function (groupId) {
+    factory.remove = function (groupId) {
       groups.$remove(groupId);
     };
 
     return factory;
   });
 
-  app.factory('Posts', function ($firebase, User) {
+  app.factory('Post', function ($firebase, User) {
     var allPostsRef = new Firebase(FIREBASE_URL + 'posts');
     var postsIndexRef = new Firebase(FIREBASE_URL + 'posts_index');
     var viewablePosts = $firebase(postsIndexRef).$child(User.getId());
@@ -127,7 +128,7 @@
       return post;
     };
 
-    factory.getPosts = function () {
+    factory.all = function () {
       viewablePosts.$on('child_added', function (post) {
         posts.push(factory.find(post.snapshot.name));
       });
@@ -135,7 +136,7 @@
       return posts;
     };
 
-    factory.makePost = function (text, groups) {
+    factory.add = function (text, groups) {
       var groupsObj = {};
       groups.forEach(function (group) {
         groupsObj[group.id] = group.name;

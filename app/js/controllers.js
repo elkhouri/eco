@@ -18,9 +18,9 @@
     };
   });
 
-  app.controller('MainCtrl', function ($scope, User, Friends, Groups, Posts) {
-    $scope.groups = Groups.getGroups();
-    $scope.posts = Posts.getPosts();
+  app.controller('MainCtrl', function ($scope, User, Friend, Group, Post) {
+    $scope.groups = Group.all();
+    $scope.posts = Post.all();
     $scope.me = User.getMe();
 
     $scope.postGroup = {};
@@ -31,12 +31,12 @@
     });
 
     $scope.makePost = function () {
-      Posts.makePost($scope.postText, $scope.postGroup);
+      Post.add($scope.postText, $scope.postGroup);
     };
 
   });
 
-  app.controller('GroupsCtrl', function ($scope, $modal, Groups) {
+  app.controller('GroupsCtrl', function ($scope, $modal, Group) {
     $scope.newGroup = {
       name: '',
       members: {}
@@ -50,7 +50,7 @@
       });
 
       modalInstance.result.then(function () {
-        Groups.addGroup($scope.newGroup);
+        Group.add($scope.newGroup);
         $scope.newGroup = {
           name: '',
           members: {}
@@ -66,7 +66,7 @@
       }
     };
 
-    $scope.removeGroup = Groups.removeGroup;
+    $scope.removeGroup = Group.remove;
   });
 
 }());
