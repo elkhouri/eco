@@ -30,6 +30,10 @@
       });
     };
 
+    factory.find = function (id) {
+      return users.$child(id);
+    };
+
     factory.getMe = function () {
       return me;
     };
@@ -77,6 +81,10 @@
 
     factory.add = function (newFriend) {
       friends.$child(newFriend.id).$set(newFriend.name);
+    };
+
+    factory.find = function(friendId) {
+      return friends[friendId];
     };
 
     factory.remove = function (friendId) {
@@ -128,6 +136,21 @@
 
     factory.remove = function (groupId) {
       groups.$remove(groupId);
+    };
+
+    factory.getMembers = function (groupName) {
+      return groups.$child(groupName).$child('members');
+    };
+
+    factory.removeMember = function (oldMemberId, groupName){
+      groups.$child(groupName).$child('members').$remove(oldMemberId);
+    };
+
+    factory.addMember = function (groupName, newMembers) {
+      for(var id in newMembers){
+        var member = JSON.parse(newMembers[id]);
+        groups.$child(groupName).$child('members').$child(member.id).$set(member.name);
+      }
     };
 
     return factory;

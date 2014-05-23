@@ -38,14 +38,17 @@
 
   });
 
-  app.controller('GroupsCtrl', function ($scope, $modal, Group) {
-    $scope.newGroup = {
-      name: '',
-      members: {}
-    };
-    $scope.groupTab = -1;
+  app.controller('GroupsCtrl', function ($scope, $modal, Group, Friend) {
+    $scope.friends = Friend.all();
+    $scope.removeGroup = Group.remove;
+    $scope.removeMember = Group.removeMember;
 
     $scope.addGroupModal = function () {
+      $scope.newGroup = {
+        name: '',
+        members: {}
+      };
+
       var modalInstance = $modal.open({
         templateUrl: 'template/add_group_modal.html',
         scope: $scope
@@ -60,6 +63,33 @@
       });
     };
 
+    $scope.addMemberModal = function (groupName) {
+      var members = Group.getMembers(groupName);
+      $scope.nonMembers = _($scope.friends.$getIndex())
+        .difference(members.$getIndex())
+        .map(function (friendId) {
+          return {
+            name: Friend.find(friendId),
+            id: friendId
+          };
+        })
+        .value();
+
+      $scope.groupName = groupName;
+      $scope.newMembers = {};
+
+      var modalInstance = $modal.open({
+        templateUrl: 'template/add_member_modal.html',
+        scope: $scope
+      });
+
+      modalInstance.result.then(function () {
+        Group.addMember($scope.groupName, $scope.newMembers);
+        $scope.newMembers = {};
+      });
+    };
+
+    $scope.groupTab = -1;
     $scope.switchTab = function (index) {
       if (index === $scope.groupTab) {
         $scope.groupTab = -1;
@@ -68,10 +98,9 @@
       }
     };
 
-    $scope.removeGroup = Group.remove;
   });
 
-  app.controller('FriendsCtrl', function($scope, Friend) {
+  app.controller('FriendsCtrl', function ($scope, Friend) {
     $scope.friends = Friend.all();
     $scope.addFriend = Friend.add;
     $scope.removeFriend = Friend.remove;
@@ -83,7 +112,7 @@
 
     $scope.showing = '';
     $scope.show = function (name) {
-      if(name !== $scope.showing){
+      if (name !== $scope.showing) {
         $scope.showing = name;
       } else {
         $scope.showing = '';

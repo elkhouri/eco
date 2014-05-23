@@ -43,17 +43,19 @@
       </div>
     </div>
     <div collapse='$parent.groupTab !== $index'>
-      <div ng-repeat='member in group.members'>
+      <div ng-repeat='(id, name) in group.members'>
         <div class='row'>
           <div class='col-sm-6'>
-            {{member}}
+            {{ name }}
           </div>
           <div class='col-sm-3'>
-            <button>Delete</button>
+            <button ng-click='removeMember(id, groupName)'>Delete</button>
           </div>
         </div>
       </div>
+      <button ng-click='addMemberModal(groupName)'>Add Member</button>
     </div>
+
   </div>
 
   <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
