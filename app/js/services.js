@@ -14,9 +14,9 @@
     var me = {};
 
     function createUser(user) {
-      users[user.uid] = {
+      users[user.id] = {
         name: user.displayName,
-        $priority: user.uid
+        $priority: user.id
       };
 
       users.$save();
@@ -35,7 +35,7 @@
     };
 
     factory.getId = function () {
-      return me.facebook.uid;
+      return me.facebook.id;
     };
 
     factory.getUrl = function () {
@@ -51,7 +51,7 @@
         rememberMe: true
       }).then(function (user) {
         me.facebook = user;
-        if (users.$child(user.uid).$getIndex().length === 0) {
+        if (users.$child(user.id).$getIndex().length === 0) {
           createUser(user);
         }
 
@@ -66,20 +66,37 @@
     return factory;
   });
 
-  app.factory('Friend', function ($rootScope, $http, User) {
+  app.factory('Friend', function ($q, $http, $firebase, User) {
+    var friendsRef = new Firebase(User.getUrl() + '/friends');
+    var friends = $firebase(friendsRef);
     var factory = {};
 
-    function getFbFriends(accessToken) {
+    factory.all = function () {
+      return friends;
+    };
+
+    factory.add = function (newFriend) {
+      friends.$child(newFriend.id).$set(newFriend.name);
+    };
+
+    factory.remove = function (friendId) {
+      friends.$remove(friendId);
+    };
+
+    factory.getFbFriends = function () {
+      var defer = $q.defer();
       $http.get('https://graph.facebook.com/v1.0/me/friends', {
         params: {
-          access_token: accessToken
+          access_token: User.getMe().facebook.accessToken
         }
       }).then(function (friends) {
-        User.getMe().fbFriends = friends.data.data;
+        defer.resolve(friends.data.data);
+      }, function (e) {
+        defer.reject(e);
       });
-    }
 
-    getFbFriends(User.getMe().facebook.accessToken);
+      return defer.promise;
+    };
 
     return factory;
   });

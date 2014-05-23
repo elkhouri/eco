@@ -4,8 +4,12 @@
 
 var app = angular.module('eco.filters', []);
 
-app.filter('filterByGroup', function () {
+app.filter('byGroup', function () {
   return function (posts, group) {
+    if(group && group.name === 'All') {
+      return posts;
+    }
+
     var filteredPosts = [];
 
     posts.forEach(function (post) {
@@ -18,4 +22,13 @@ app.filter('filterByGroup', function () {
 
     return filteredPosts;
   };
+});
+
+app.filter('notFriends', function(){
+  return function (fbFriends, ecoFriends){
+    return _.filter(fbFriends, function(fb){
+      return !_.has(ecoFriends, fb.id);
+    });
+  };
+
 });

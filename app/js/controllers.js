@@ -18,16 +18,18 @@
     };
   });
 
-  app.controller('MainCtrl', function ($scope, User, Friend, Group, Post) {
+  app.controller('MainCtrl', function ($scope, Group, Post) {
     $scope.groups = Group.all();
     $scope.posts = Post.all();
-    $scope.me = User.getMe();
 
     $scope.postGroup = {};
     $scope.postText = '';
 
-    $scope.groups.$on('loaded', function(){
-      $scope.currentGroup = $scope.groups[$scope.groups.$getIndex()[0]];
+    $scope.groups.$on('loaded', function () {
+      $scope.viewingGroup = {
+        name: 'All'
+      };
+      //      $scope.currentGroup = $scope.groups[$scope.groups.$getIndex()[0]];
     });
 
     $scope.makePost = function () {
@@ -67,6 +69,26 @@
     };
 
     $scope.removeGroup = Group.remove;
+  });
+
+  app.controller('FriendsCtrl', function($scope, Friend) {
+    $scope.friends = Friend.all();
+    $scope.addFriend = Friend.add;
+    $scope.removeFriend = Friend.remove;
+    $scope.fbFriends = [];
+
+    Friend.getFbFriends().then(function (friends) {
+      $scope.fbFriends = friends;
+    });
+
+    $scope.showing = '';
+    $scope.show = function (name) {
+      if(name !== $scope.showing){
+        $scope.showing = name;
+      } else {
+        $scope.showing = '';
+      }
+    };
   });
 
 }());

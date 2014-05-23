@@ -59,13 +59,13 @@
   <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
 </div>
 
-<div class='col-sm-7'>
+<div class='col-sm-6'>
   <label>Filter by Group:</label>
 
-  <select ng-options='groupName for (groupName, group) in groups' ng-model='currentGroup'>
+  <select ng-options='{name: groupName, group: group} as groupName for (groupName, group) in groups' ng-model='viewingGroup'>
   </select>
 
-  <div ng-repeat='post in posts | filterByGroup: currentGroup'>
+  <div ng-repeat='post in posts | byGroup: viewingGroup'>
     <div class="panel panel-default">
       <div class="panel-body">
         {{ post.text }}
@@ -74,15 +74,30 @@
   </div>
 </div>
 
-<div class='col-sm-2'>
-  <button class='btn btn-default' ng-click='showFriends = !showFriends'>Add Friends</button>
-  <div ng-repeat='friend in me.fbFriends' collapse='!showFriends'>
+<div class='col-sm-3' ng-controller='FriendsCtrl'>
+  <div class="btn-group">
+    <button class='btn btn-default' ng-click="show('friendList')">Friend List</button>
+    <button class='btn btn-default' ng-click="show('addingFriends')">Add Friends</button>
+  </div>
+
+  <div ng-repeat='friend in fbFriends | notFriends: friends' collapse="showing !== 'addingFriends'">
     <div class='row'>
       <div class='col-sm-2'>
-        <button>Add</button>
+        <button ng-click='addFriend(friend)'>Add</button>
       </div>
       <div class='col-sm-10'>
         {{friend.name}}
+      </div>
+    </div>
+  </div>
+
+  <div ng-repeat='(id, name) in friends' collapse="showing !== 'friendList'">
+    <div class='row'>
+      <div class='col-sm-3'>
+        <button ng-click='removeFriend(id)'>Remove</button>
+      </div>
+      <div class='col-sm-9'>
+        {{name}}
       </div>
     </div>
   </div>
