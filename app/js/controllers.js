@@ -96,8 +96,10 @@
 
   app.controller('FriendsCtrl', function ($scope, Friend) {
     $scope.friends = Friend.all();
-    $scope.addFriend = Friend.add;
+    $scope.pendingInvites = Friend.pendingInvites();
     $scope.removeFriend = Friend.remove;
+    $scope.requestFriend = Friend.request;
+    $scope.cancelRequest = Friend.cancelRequest;
     $scope.fbFriends = [];
 
     Friend.getFbFriends().then(function (friends) {

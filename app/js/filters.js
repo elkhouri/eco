@@ -21,9 +21,9 @@ app.filter('byGroup', function () {
 });
 
 app.filter('notFriends', function () {
-  return function (fbFriends, ecoFriends) {
+  return function (fbFriends, ecoFriends, pendings) {
     return _.filter(fbFriends, function (fb) {
-      return !_.has(ecoFriends, fb.id);
+      return !_.has(ecoFriends, fb.id) && !_.has(pendings, fb.id);
     });
   };
 

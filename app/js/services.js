@@ -38,6 +38,10 @@
       return me;
     };
 
+    factory.getName = function (){
+      return me.facebook.displayName;
+    }
+
     factory.getId = function () {
       return me.facebook.id;
     };
@@ -72,7 +76,9 @@
 
   app.factory('Friend', function ($q, $http, $firebase, User) {
     var friendsRef = new Firebase(User.getUrl() + '/friends');
+    var pendingRef = new Firebase(User.getUrl() + '/pending');
     var friends = $firebase(friendsRef);
+    var pendingInvites = $firebase(pendingRef);
     var factory = {};
 
     factory.all = function () {
@@ -88,7 +94,13 @@
     };
 
     factory.remove = function (friendId) {
+      var friendRef = User.find(friendId);
       friends.$remove(friendId);
+      friendRef.$child('friends').$remove(User.getId());
+    };
+
+    factory.pendingInvites = function (){
+      return pendingInvites;
     };
 
     factory.getFbFriends = function () {
@@ -104,6 +116,25 @@
       });
 
       return defer.promise;
+    };
+
+    factory.request = function (friend) {
+      var friendRef = User.find(friend.id);
+      var friendPending = friendRef.$child('pending').$child(User.getId());
+
+      friendPending.$on('loaded', function () {
+        if (friendPending.$value) {
+          friendPending.$remove();
+          friendRef.$child('friends').$child(User.getId()).$set(User.getName());
+          friends.$child(friend.id).$set(friend.name);
+        } else {
+          pendingInvites.$child(friend.id).$set(friend.name);
+        }
+      });
+    };
+
+    factory.cancelRequest = function (friendId) {
+      pendingInvites.$remove(friendId);
     };
 
     return factory;

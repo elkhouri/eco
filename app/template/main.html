@@ -97,19 +97,9 @@
 
   <div class='col-sm-3' ng-controller='FriendsCtrl'>
     <div class="btn-group">
-      <button class='btn btn-default' ng-click="show('friendList')">Friend List</button>
-      <button class='btn btn-default' ng-click="show('addingFriends')">Add Friends</button>
-    </div>
-
-    <div ng-repeat='friend in fbFriends | notFriends: friends' collapse="showing !== 'addingFriends'">
-      <div class='row'>
-        <div class='col-sm-2'>
-          <button ng-click='addFriend(friend)'>Add</button>
-        </div>
-        <div class='col-sm-10'>
-          {{friend.name}}
-        </div>
-      </div>
+      <button class='btn btn-default' ng-click="show('friendList')">Friends</button>
+      <button class='btn btn-default' ng-click="show('addingFriends')">Add</button>
+      <button class='btn btn-default' ng-click="show('pending')">Pending</button>
     </div>
 
     <div ng-repeat='(id, name) in friends' collapse="showing !== 'friendList'">
@@ -122,5 +112,28 @@
         </div>
       </div>
     </div>
+
+    <div ng-repeat='friend in fbFriends | notFriends: friends: pendingInvites' collapse="showing !== 'addingFriends'">
+      <div class='row'>
+        <div class='col-sm-3'>
+          <button ng-click='requestFriend(friend)'>Request</button>
+        </div>
+        <div class='col-sm-9'>
+          {{friend.name}}
+        </div>
+      </div>
+    </div>
+
+    <div ng-repeat='(id, name) in pendingInvites' collapse="showing !== 'pending'">
+      <div class='row'>
+        <div class='col-sm-3'>
+          <button ng-click='cancelRequest(id)'>Remove</button>
+        </div>
+        <div class='col-sm-9'>
+          {{name}}
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
