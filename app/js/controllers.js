@@ -25,13 +25,6 @@
     $scope.postGroup = {};
     $scope.postText = '';
 
-    $scope.groups.$on('loaded', function () {
-      $scope.viewingGroup = {
-        name: 'All'
-      };
-      //      $scope.currentGroup = $scope.groups[$scope.groups.$getIndex()[0]];
-    });
-
     $scope.makePost = function () {
       Post.add($scope.postText, $scope.postGroup);
     };

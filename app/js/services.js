@@ -83,7 +83,7 @@
       friends.$child(newFriend.id).$set(newFriend.name);
     };
 
-    factory.find = function(friendId) {
+    factory.find = function (friendId) {
       return friends[friendId];
     };
 
@@ -142,12 +142,12 @@
       return groups.$child(groupName).$child('members');
     };
 
-    factory.removeMember = function (oldMemberId, groupName){
+    factory.removeMember = function (oldMemberId, groupName) {
       groups.$child(groupName).$child('members').$remove(oldMemberId);
     };
 
     factory.addMember = function (groupName, newMembers) {
-      for(var id in newMembers){
+      for (var id in newMembers) {
         var member = JSON.parse(newMembers[id]);
         groups.$child(groupName).$child('members').$child(member.id).$set(member.name);
       }
@@ -159,8 +159,10 @@
   app.factory('Post', function ($firebase, User) {
     var allPostsRef = new Firebase(FIREBASE_URL + 'posts');
     var postsIndexRef = new Firebase(FIREBASE_URL + 'posts_index');
-    var viewablePosts = $firebase(postsIndexRef).$child(User.getId());
     var allPosts = $firebase(allPostsRef);
+    var postsIndex = $firebase(postsIndexRef);
+    var viewablePosts = $firebase(postsIndexRef).$child(User.getId());
+
     var posts = [];
     var factory = {};
 
@@ -190,8 +192,12 @@
         userId: User.getId(),
         groups: groupsObj
       }).then(function (ref) {
-        viewablePosts.$child(ref.name()).$set({
-          userId: User.getId()
+        viewablePosts.$child(ref.name()).$set(true);
+
+        groups.forEach(function (group) {
+          for (var id in group.members) {
+            postsIndex.$child(id).$child(ref.name()).$set(true);
+          }
         });
       });
     };
