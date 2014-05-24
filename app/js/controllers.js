@@ -5,6 +5,7 @@
 
   app.controller('AuthCtrl', function ($scope, $state, User) {
     $scope.loggedIn = User.loggedIn;
+    $scope.me = User.getMe();
 
     $scope.login = function () {
       User.login().then(function () {

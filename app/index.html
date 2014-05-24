@@ -19,6 +19,9 @@
 
       <ul class='nav navbar-nav navbar-right' ng-show='loggedIn()'>
         <li>
+          <p class='navbar-text'>Hello, {{me.facebook.displayName}}</p>
+        </li>
+        <li>
           <a ng-click="logout()">Logout</a>
         </li>
       </ul>
