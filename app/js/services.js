@@ -5,7 +5,7 @@
 
   var FIREBASE_URL = 'https://eco.firebaseio.com/';
 
-  app.factory('User', function ($firebase, $firebaseSimpleLogin, $cookies) {
+  app.factory('User', function ($firebase, $firebaseSimpleLogin) {
     var auth = $firebaseSimpleLogin(new Firebase(FIREBASE_URL));
     var usersRef = new Firebase(FIREBASE_URL + 'users');
     var users = $firebase(usersRef);
@@ -47,7 +47,7 @@
     };
 
     factory.loggedIn = function () {
-      return $cookies.firebaseSessionKey ? true : false;
+      return auth.user !== null;
     };
 
     factory.login = function () {
