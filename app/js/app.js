@@ -4,7 +4,6 @@
   var app = angular.module('eco', [
     'ui.router',
     'ui.bootstrap',
-    'ngCookies',
     'firebase',
     'eco.controllers',
     'eco.filters',
