@@ -1,105 +1,125 @@
-<div class='col-sm-offset-5'>
-  <!--  All buttons bring up the same form for now-->
-  <button class='btn btn-default' ng-click='isPosting = !isPosting'>Text</button>
-  <button class='btn btn-default' ng-click='isPosting = !isPosting'>Image</button>
-  <button class='btn btn-default' ng-click='isPosting = !isPosting'>Link</button>
+<div class="navbar navbar-default" role="navigation" ng-controller='AuthCtrl'>
+  <div class='container-fluid'>
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Eco</a>
+    </div>
+
+    <ul class='nav navbar-nav navbar-right' ng-show='loggedIn()'>
+      <li>
+        <p class='navbar-text'>Hello, {{me.facebook.displayName}}</p>
+      </li>
+      <li>
+        <a ng-click="logout()">Logout</a>
+      </li>
+    </ul>
+
+  </div>
 </div>
 
-<div collapse='!isPosting'>
-  <div class='row'>
-    <div class='col-sm-offset-3 col-sm-3'>
-      <label for='postArea'>Post</label>
-    </div>
+<div class='container'>
+  <div class='col-sm-offset-5'>
+    <!--  All buttons bring up the same form for now-->
+    <button class='btn btn-default' ng-click='isPosting = !isPosting'>Text</button>
+    <button class='btn btn-default' ng-click='isPosting = !isPosting'>Image</button>
+    <button class='btn btn-default' ng-click='isPosting = !isPosting'>Link</button>
   </div>
-  <div class='row'>
-    <div class='col-sm-offset-3 col-sm-3'>
-      <textarea class="form-control" rows="3" ng-model='postText'></textarea>
-    </div>
-    <div class='col-sm-3'>
-      <label>Group:</label>
-      <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='postGroup'>
-      </select>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='col-sm-offset-3 col-sm-1'>
-      <button type='submit' class='btn btn-default' ng-click='makePost()'>Post</button>
-    </div>
 
-  </div>
-  <br>
-</div>
-
-<div class='col-sm-3' ng-controller='GroupsCtrl'>
-  <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
-
-  <div ng-repeat='(groupId, group) in groups'>
+  <div collapse='!isPosting'>
     <div class='row'>
-      <div class='col-sm-3'>
-        <h3 ng-click='switchTab($index)'> {{ group.name }}</h3>
-      </div>
-      <div class='col-sm-3'>
-        <a class='btn btn-danger' ng-click='removeGroup(groupId)'>Delete</a>
+      <div class='col-sm-offset-3 col-sm-3'>
+        <label for='postArea'>Post</label>
       </div>
     </div>
-    <div collapse='$parent.groupTab !== $index'>
-      <div ng-repeat='(id, name) in group.members'>
-        <div class='row'>
-          <div class='col-sm-6'>
-            {{ name }}
-          </div>
-          <div class='col-sm-3'>
-            <button ng-click='removeMember(groupId, id)'>Delete</button>
-          </div>
+    <div class='row'>
+      <div class='col-sm-offset-3 col-sm-3'>
+        <textarea class="form-control" rows="3" ng-model='postText'></textarea>
+      </div>
+      <div class='col-sm-3'>
+        <label>Group:</label>
+        <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='postGroup'>
+        </select>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-sm-offset-3 col-sm-1'>
+        <button type='submit' class='btn btn-default' ng-click='makePost()'>Post</button>
+      </div>
+
+    </div>
+    <br>
+  </div>
+
+  <div class='col-sm-3' ng-controller='GroupsCtrl'>
+    <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
+
+    <div ng-repeat='(groupId, group) in groups'>
+      <div class='row'>
+        <div class='col-sm-3'>
+          <h3 ng-click='switchTab($index)'> {{ group.name }}</h3>
+        </div>
+        <div class='col-sm-3'>
+          <a class='btn btn-danger' ng-click='removeGroup(groupId)'>Delete</a>
         </div>
       </div>
-      <button ng-click='addMemberModal(groupId)'>Add Member</button>
+      <div collapse='$parent.groupTab !== $index'>
+        <div ng-repeat='(id, name) in group.members'>
+          <div class='row'>
+            <div class='col-sm-6'>
+              {{ name }}
+            </div>
+            <div class='col-sm-3'>
+              <button ng-click='removeMember(groupId, id)'>Delete</button>
+            </div>
+          </div>
+        </div>
+        <button ng-click='addMemberModal(groupId)'>Add Member</button>
+      </div>
+
     </div>
 
+    <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
   </div>
 
-  <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
-</div>
+  <div class='col-sm-6'>
+    <label>Filter by Group:</label>
 
-<div class='col-sm-6'>
-  <label>Filter by Group:</label>
+    <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='viewingGroups'>
+    </select>
 
-  <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='viewingGroups'>
-  </select>
-
-  <div ng-repeat='post in posts | byGroup: viewingGroups'>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        {{ post.text }}
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class='col-sm-3' ng-controller='FriendsCtrl'>
-  <div class="btn-group">
-    <button class='btn btn-default' ng-click="show('friendList')">Friend List</button>
-    <button class='btn btn-default' ng-click="show('addingFriends')">Add Friends</button>
-  </div>
-
-  <div ng-repeat='friend in fbFriends | notFriends: friends' collapse="showing !== 'addingFriends'">
-    <div class='row'>
-      <div class='col-sm-2'>
-        <button ng-click='addFriend(friend)'>Add</button>
-      </div>
-      <div class='col-sm-10'>
-        {{friend.name}}
+    <div ng-repeat='post in posts | byGroup: viewingGroups'>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {{ post.text }}
+        </div>
       </div>
     </div>
   </div>
 
-  <div ng-repeat='(id, name) in friends' collapse="showing !== 'friendList'">
-    <div class='row'>
-      <div class='col-sm-3'>
-        <button ng-click='removeFriend(id)'>Remove</button>
+  <div class='col-sm-3' ng-controller='FriendsCtrl'>
+    <div class="btn-group">
+      <button class='btn btn-default' ng-click="show('friendList')">Friend List</button>
+      <button class='btn btn-default' ng-click="show('addingFriends')">Add Friends</button>
+    </div>
+
+    <div ng-repeat='friend in fbFriends | notFriends: friends' collapse="showing !== 'addingFriends'">
+      <div class='row'>
+        <div class='col-sm-2'>
+          <button ng-click='addFriend(friend)'>Add</button>
+        </div>
+        <div class='col-sm-10'>
+          {{friend.name}}
+        </div>
       </div>
-      <div class='col-sm-9'>
-        {{name}}
+    </div>
+
+    <div ng-repeat='(id, name) in friends' collapse="showing !== 'friendList'">
+      <div class='row'>
+        <div class='col-sm-3'>
+          <button ng-click='removeFriend(id)'>Remove</button>
+        </div>
+        <div class='col-sm-9'>
+          {{name}}
+        </div>
       </div>
     </div>
   </div>
