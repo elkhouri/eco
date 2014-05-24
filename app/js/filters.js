@@ -12,8 +12,8 @@ app.filter('byGroup', function () {
 
     return _.filter(posts, function (post) {
       return _.some(groups, function (group) {
-        return _.has(post.groups, group.name) ||
-          _.has(group.group.members, post.userId);
+        return _.has(post.groups, group.id) ||
+          _.has(group.members, post.userId);
       });
     });
 

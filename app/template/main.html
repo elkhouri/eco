@@ -17,7 +17,7 @@
     </div>
     <div class='col-sm-3'>
       <label>Group:</label>
-      <select multiple ng-options='{name: groupName, members: group.members} as groupName for (groupName, group) in groups' ng-model='postGroup'>
+      <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='postGroup'>
       </select>
     </div>
   </div>
@@ -33,10 +33,10 @@
 <div class='col-sm-3' ng-controller='GroupsCtrl'>
   <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
 
-  <div ng-repeat='(groupName, group) in groups'>
+  <div ng-repeat='(groupId, group) in groups'>
     <div class='row'>
       <div class='col-sm-3'>
-        <h3 ng-click='switchTab($index)'> {{ groupName }}</h3>
+        <h3 ng-click='switchTab($index)'> {{ group.name }}</h3>
       </div>
       <div class='col-sm-3'>
         <a class='btn btn-danger' ng-click='removeGroup(groupId)'>Delete</a>
@@ -49,11 +49,11 @@
             {{ name }}
           </div>
           <div class='col-sm-3'>
-            <button ng-click='removeMember(id, groupName)'>Delete</button>
+            <button ng-click='removeMember(groupId, id)'>Delete</button>
           </div>
         </div>
       </div>
-      <button ng-click='addMemberModal(groupName)'>Add Member</button>
+      <button ng-click='addMemberModal(groupId)'>Add Member</button>
     </div>
 
   </div>
@@ -64,7 +64,7 @@
 <div class='col-sm-6'>
   <label>Filter by Group:</label>
 
-  <select multiple ng-options='{name: groupName, group: group} as groupName for (groupName, group) in groups' ng-model='viewingGroups'>
+  <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='viewingGroups'>
   </select>
 
   <div ng-repeat='post in posts | byGroup: viewingGroups'>

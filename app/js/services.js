@@ -128,7 +128,9 @@
         }
       });
 
-      groups.$child(name).$set({
+
+      groups.$add({
+        name: name,
         members: members
       });
 
@@ -138,18 +140,18 @@
       groups.$remove(groupId);
     };
 
-    factory.getMembers = function (groupName) {
-      return groups.$child(groupName).$child('members');
+    factory.getMembers = function (groupId) {
+      return groups.$child(groupId).$child('members');
     };
 
-    factory.removeMember = function (oldMemberId, groupName) {
-      groups.$child(groupName).$child('members').$remove(oldMemberId);
+    factory.removeMember = function (groupId, oldMemberId) {
+      groups.$child(groupId).$child('members').$remove(oldMemberId);
     };
 
-    factory.addMember = function (groupName, newMembers) {
+    factory.addMember = function (groupId, newMembers) {
       for (var id in newMembers) {
         var member = JSON.parse(newMembers[id]);
-        groups.$child(groupName).$child('members').$child(member.id).$set(member.name);
+        groups.$child(groupId).$child('members').$child(member.id).$set(member.name);
       }
     };
 
@@ -183,7 +185,7 @@
       var groupsObj = {};
       if (groups.length > 0) {
         groups.forEach(function (group) {
-          groupsObj[group.name] = group.name;
+          groupsObj[group.id] = true;
         });
       }
 
