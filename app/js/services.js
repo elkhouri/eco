@@ -38,7 +38,7 @@
       return me;
     };
 
-    factory.getName = function (){
+    factory.getName = function () {
       return me.facebook.displayName;
     };
 
@@ -74,7 +74,7 @@
     return factory;
   });
 
-  app.factory('Friend', function ($q, $http, $firebase, User) {
+  app.factory('Friend', function ($q, $http, $firebase, User, Group) {
     var friendsRef = new Firebase(User.getUrl() + '/friends');
     var pendingRef = new Firebase(User.getUrl() + '/pending');
     var friends = $firebase(friendsRef);
@@ -95,11 +95,20 @@
 
     factory.remove = function (friendId) {
       var friendRef = User.find(friendId);
+
       friends.$remove(friendId);
       friendRef.$child('friends').$remove(User.getId());
+
+      Group.all().$on('loaded', function (groups) {
+        _.forOwn(groups, function (group, id) {
+          if (_.has(group.members, friendId)) {
+            Group.removeMember(id, friendId);
+          }
+        });
+      });
     };
 
-    factory.pendingInvites = function (){
+    factory.pendingInvites = function () {
       return pendingInvites;
     };
 
