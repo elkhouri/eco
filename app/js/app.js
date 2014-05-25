@@ -5,6 +5,7 @@
     'ui.router',
     'ui.bootstrap',
     'firebase',
+    'angularFileUpload',
     'eco.controllers',
     'eco.filters',
     'eco.services',

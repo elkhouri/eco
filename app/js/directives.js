@@ -26,19 +26,18 @@ app.directive('imagePost', function () {
       console.log(postTitle, imageUrl, imageUpload, groups);
     };
 
-    function handleFileSelect(evt) {
-      var f = evt.target.files[0];
+    scope.onFileSelect = function ($files) {
+      var file = $files[0];
       var reader = new FileReader();
-      reader.onload = function (theFile) {
-
-        var filePayload = theFile.target.result;
-        console.log(filePayload);
-
+      reader.onload = function (e) {
+        scope.$apply(function () {
+          scope.imgPreview = e.target.result;
+        });
       };
-      reader.readAsDataURL(f);
+      reader.readAsDataURL(file);
 
-    }
-    document.getElementById('image-upload').addEventListener('change', handleFileSelect, false);
+
+    };
   };
 
 
