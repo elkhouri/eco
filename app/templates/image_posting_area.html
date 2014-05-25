@@ -10,6 +10,14 @@
     </div>
     <div class='row'>
       <div class='col-sm-3'>
+        <label>Content</label>
+      </div>
+      <div class='col-sm-9'>
+        <textarea class="form-control" rows="3" ng-model='postContent'></textarea>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-sm-3'>
         <label>Image URL</label>
       </div>
       <div class='col-sm-9'>
@@ -23,8 +31,8 @@
       <div class='col-sm-9'>
         <input type="file" ng-file-select="onFileSelect($files)">
         <div class='thumbnail' ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class" ng-show="dropSupported">
-          <img ng-show='!imgPreview' src="http://placehold.it/400x240&text=Drag+Image+Here">
-          <img ng-show='imgPreview' ng-src='{{imgPreview}}'>
+          <img ng-show='!img' src="http://placehold.it/400x240&text=Drag+Image+Here">
+          <img ng-show='img' ng-src='{{img}}'>
         </div>
         <div ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
       </div>
@@ -38,6 +46,6 @@
 </div>
 <div class='row'>
   <div class='col-sm-offset-3 col-sm-2'>
-    <button type='submit' class='btn btn-default' ng-click='makePost(postTitle, imageUrl, imageUpload, postGroups)'>Post</button>
+    <button type='submit' class='btn btn-default' ng-click='makePost(postTitle, postContent, postGroups, imageUrl, img)'>Post</button>
   </div>
 </div>

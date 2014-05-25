@@ -238,7 +238,7 @@
       return posts;
     };
 
-    function addPost(type, title, content, link, groups) {
+    function addPost(type, title, content, groups, link, image) {
       var groupsObj = {};
       if (groups.length > 0) {
         groups.forEach(function (group) {
@@ -251,6 +251,7 @@
         title: title,
         content: content,
         link: link,
+        image: image,
         userId: User.getId(),
         groups: groupsObj
       }).then(function (ref) {
@@ -265,11 +266,15 @@
     }
 
     factory.textPost = function (title, content, groups) {
-      addPost('text', title, content, '', groups);
+      addPost('text', title, content, groups);
     };
 
-    factory.linkPost = function (title, link, content, groups) {
-      addPost('link', title, content, link, groups);
+    factory.linkPost = function (title, content, groups, link) {
+      addPost('link', title, content, groups, link);
+    };
+
+    factory.imagePost = function (title, content, groups, imageUrl, imageFile) {
+      addPost('image', title, content, groups, imageUrl, imageFile);
     };
 
     return factory;

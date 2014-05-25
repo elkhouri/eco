@@ -1,0 +1,13 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    {{ post.title }}
+    <div class='pull-right'>{{ post.type | uppercase}}</div>
+  </div>
+  <div class="panel-body">
+    {{ post.content }}
+    <div class='thumbnail'>
+      <img ng-if='post.image' ng-src='{{post.image}}'>
+      <img ng-if='post.link' ng-src='{{post.link}}'>
+    </div>
+  </div>
+</div>

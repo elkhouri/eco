@@ -20,18 +20,16 @@ app.directive('textPost', function (Post) {
 
 });
 
-app.directive('imagePost', function () {
+app.directive('imagePost', function (Post) {
   var linker = function (scope, element) {
-    scope.makePost = function (postTitle, imageUrl, imageUpload, groups) {
-      console.log(postTitle, imageUrl, imageUpload, groups);
-    };
+    scope.makePost = Post.imagePost;
 
     scope.onFileSelect = function ($files) {
       var file = $files[0];
       var reader = new FileReader();
       reader.onload = function (e) {
         scope.$apply(function () {
-          scope.imgPreview = e.target.result;
+          scope.img = e.target.result;
         });
       };
       reader.readAsDataURL(file);
@@ -55,7 +53,6 @@ app.directive('linkPost', function (Post) {
     scope.makePost = Post.linkPost;
 
   };
-
 
   return {
     restrict: 'E',
