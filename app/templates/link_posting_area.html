@@ -1,30 +1,38 @@
 <div class='row'>
   <div class='col-sm-offset-2 col-sm-6'>
     <div class='row'>
-      <div class='col-sm-1'>
+      <div class='col-sm-3'>
         <label>Title</label>
       </div>
-      <div class="col-sm-11">
+      <div class="col-sm-9">
         <input class='form-control' type="text" ng-model='postTitle'>
       </div>
     </div>
     <div class='row'>
-      <div class='col-sm-1'>
+      <div class='col-sm-3'>
         <label>Link</label>
       </div>
-      <div class='col-sm-11'>
-        <textarea class="form-control" rows="3" ng-model='postText'></textarea>
+      <div class='col-sm-9'>
+        <input type='url' class="form-control" ng-model='postLink'>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-sm-3'>
+        <label>Content</label>
+      </div>
+      <div class='col-sm-9'>
+        <textarea class='form-control' rows="3" ng-model='postContent'></textarea>
       </div>
     </div>
   </div>
   <div class='col-sm-2'>
     <label>Group:</label>
-    <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='postGroup'>
+    <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='postGroups'>
     </select>
   </div>
 </div>
 <div class='row'>
   <div class='col-sm-offset-3 col-sm-2'>
-    <button type='submit' class='btn btn-default' ng-click='makePost()'>Post</button>
+    <button type='submit' class='btn btn-default' ng-click='makePost(postTitle, postLink, postContent, postGroups)'>Post</button>
   </div>
 </div>

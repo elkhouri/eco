@@ -6,6 +6,7 @@
     'ui.bootstrap',
     'firebase',
     'angularFileUpload',
+    'ngSanitize',
     'eco.controllers',
     'eco.filters',
     'eco.services',

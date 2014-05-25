@@ -35,8 +35,6 @@ app.directive('imagePost', function () {
         });
       };
       reader.readAsDataURL(file);
-
-
     };
   };
 
@@ -52,8 +50,9 @@ app.directive('imagePost', function () {
 
 });
 
-app.directive('linkPost', function () {
+app.directive('linkPost', function (Post) {
   var linker = function (scope, element) {
+    scope.makePost = Post.linkPost;
 
   };
 

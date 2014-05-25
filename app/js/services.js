@@ -238,7 +238,7 @@
       return posts;
     };
 
-    function addPost(type, title, content, groups) {
+    function addPost(type, title, content, link, groups) {
       var groupsObj = {};
       if (groups.length > 0) {
         groups.forEach(function (group) {
@@ -250,6 +250,7 @@
         type: type,
         title: title,
         content: content,
+        link: link,
         userId: User.getId(),
         groups: groupsObj
       }).then(function (ref) {
@@ -264,10 +265,12 @@
     }
 
     factory.textPost = function (title, content, groups) {
-      addPost('text', title, content, groups);
+      addPost('text', title, content, '', groups);
     };
 
-
+    factory.linkPost = function (title, link, content, groups) {
+      addPost('link', title, content, link, groups);
+    };
 
     return factory;
   });

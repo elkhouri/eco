@@ -4,6 +4,8 @@
     <div class='pull-right'>{{ post.type | uppercase}}</div>
   </div>
   <div class="panel-body">
+    <span ng-bind-html="post.link | linky"></span>
+    <br>
     {{ post.content }}
   </div>
 </div>
