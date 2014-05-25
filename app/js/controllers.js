@@ -5,7 +5,7 @@
 
   app.controller('AuthCtrl', function ($scope, $state, User) {
     $scope.loggedIn = User.loggedIn;
-    $scope.me = User.getMe();
+    $scope.name = User.getName();
 
     $scope.login = function () {
       User.login().then(function () {
@@ -23,11 +23,21 @@
     $scope.groups = Group.all();
     $scope.posts = Post.all();
 
+    $scope.nowPosting = '';
     $scope.postGroup = {};
     $scope.postText = '';
+    $scope.postTitle = '';
 
     $scope.makePost = function () {
       Post.add($scope.postText, $scope.postGroup);
+    };
+
+    $scope.switchPost = function (postType){
+      if($scope.nowPosting === postType){
+        $scope.nowPosting = '';
+      } else {
+        $scope.nowPosting = postType;
+      }
     };
 
   });

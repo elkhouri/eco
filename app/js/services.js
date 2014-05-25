@@ -40,7 +40,7 @@
 
     factory.getName = function (){
       return me.facebook.displayName;
-    }
+    };
 
     factory.getId = function () {
       return me.facebook.id;
