@@ -238,7 +238,7 @@
       return posts;
     };
 
-    factory.add = function (text, groups) {
+    function addPost(type, title, content, groups) {
       var groupsObj = {};
       if (groups.length > 0) {
         groups.forEach(function (group) {
@@ -247,7 +247,9 @@
       }
 
       allPosts.$add({
-        text: text,
+        type: type,
+        title: title,
+        content: content,
         userId: User.getId(),
         groups: groupsObj
       }).then(function (ref) {
@@ -259,7 +261,13 @@
           }
         });
       });
+    }
+
+    factory.textPost = function (title, content, groups) {
+      addPost('text', title, content, groups);
     };
+
+
 
     return factory;
   });

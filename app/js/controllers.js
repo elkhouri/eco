@@ -22,15 +22,12 @@
   app.controller('MainCtrl', function ($scope, Group, Post) {
     $scope.groups = Group.all();
     $scope.posts = Post.all();
+    $scope.makePost = Post.add;
 
     $scope.nowPosting = '';
     $scope.postGroup = {};
     $scope.postText = '';
     $scope.postTitle = '';
-
-    $scope.makePost = function () {
-      Post.add($scope.postText, $scope.postGroup);
-    };
 
     $scope.switchPost = function (postType){
       if($scope.nowPosting === postType){
@@ -54,7 +51,7 @@
       };
 
       var modalInstance = $modal.open({
-        templateUrl: 'template/add_group_modal.html',
+        templateUrl: 'templates/add_group_modal.html',
         scope: $scope
       });
 
@@ -76,7 +73,7 @@
       });
 
       var modalInstance = $modal.open({
-        templateUrl: 'template/add_member_modal.html',
+        templateUrl: 'templates/add_member_modal.html',
         scope: $scope
       });
 

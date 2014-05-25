@@ -17,7 +17,7 @@
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: 'template/main.html',
+        templateUrl: 'templates/main.html',
         controller: 'MainCtrl',
         resolve: {
           auth: function (User) {
@@ -27,7 +27,7 @@
       })
       .state('login', {
         url: '/login',
-        templateUrl: 'template/login.html',
+        templateUrl: 'templates/login.html',
         controller: 'AuthCtrl'
       });
   });
