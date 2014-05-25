@@ -67,20 +67,13 @@
       });
     };
 
-    $scope.addMemberModal = function (groupName) {
-      var members = Group.getMembers(groupName);
-      $scope.nonMembers = _($scope.friends.$getIndex())
-        .difference(members.$getIndex())
-        .map(function (friendId) {
-          return {
-            name: Friend.find(friendId),
-            id: friendId
-          };
-        })
-        .value();
-
-      $scope.groupName = groupName;
+    $scope.addMemberModal = function (groupId) {
+      $scope.groupName = Group.find(groupId).name;
       $scope.newMembers = {};
+
+      Group.getNonMembers(groupId).then(function(data){
+        $scope.nonMembers = data;
+      });
 
       var modalInstance = $modal.open({
         templateUrl: 'template/add_member_modal.html',
@@ -88,7 +81,7 @@
       });
 
       modalInstance.result.then(function () {
-        Group.addMember($scope.groupName, $scope.newMembers);
+        Group.addMember(groupId, $scope.newMembers);
         $scope.newMembers = {};
       });
     };

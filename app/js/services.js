@@ -62,7 +62,6 @@
         if (users.$child(user.id).$getIndex().length === 0) {
           createUser(user);
         }
-
       });
     };
 
@@ -82,6 +81,7 @@
     var factory = {};
 
     factory.all = function () {
+      User.getMe().friends = friends;
       return friends;
     };
 
@@ -149,7 +149,7 @@
     return factory;
   });
 
-  app.factory('Group', function ($firebase, User) {
+  app.factory('Group', function ($firebase, $q, User) {
     var groupsRef = new Firebase(User.getUrl() + '/groups');
     var groups = $firebase(groupsRef);
     var factory = {};
@@ -158,22 +158,22 @@
       return groups;
     };
 
+    factory.find = function (groupId) {
+      return groups.$child(groupId);
+    };
+
     factory.add = function (newGroup) {
       var name = newGroup.name;
-      var members = newGroup.members;
-
-      _.each(members, function (name, id) {
-        if (!name) {
-          delete members[id];
+      var members = _.transform(newGroup.members, function (acc, name, id) {
+        if (name) {
+          acc[id] = name;
         }
       });
-
 
       groups.$add({
         name: name,
         members: members
       });
-
     };
 
     factory.remove = function (groupId) {
@@ -184,15 +184,32 @@
       return groups.$child(groupId).$child('members');
     };
 
+    factory.hasMember = function (groupId, memberId) {
+      return _.has(groups.$child(groupId).$child('members'), memberId);
+    };
+
+    factory.getNonMembers = function (groupId) {
+      var defer = $q.defer();
+      User.getMe().friends.$on('loaded', function (friends) {
+        var nonMembers = _.transform(friends, function (acc, name, id) {
+          if (!factory.hasMember(groupId, id)) {
+            acc[id] = name;
+          }
+        });
+        defer.resolve(nonMembers);
+      });
+
+      return defer.promise;
+    };
+
     factory.removeMember = function (groupId, oldMemberId) {
       groups.$child(groupId).$child('members').$remove(oldMemberId);
     };
 
     factory.addMember = function (groupId, newMembers) {
-      for (var id in newMembers) {
-        var member = JSON.parse(newMembers[id]);
-        groups.$child(groupId).$child('members').$child(member.id).$set(member.name);
-      }
+      _.forOwn(newMembers, function (name, id) {
+        groups.$child(groupId).$child('members').$child(id).$set(name);
+      });
     };
 
     return factory;

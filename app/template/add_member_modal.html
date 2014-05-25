@@ -3,10 +3,10 @@
 </div>
 
 <div class="modal-body">
-  <div class="checkbox" ng-repeat='friend in nonMembers'>
+  <div class="checkbox" ng-repeat='(id, name) in nonMembers'>
     <label>
-      <input type="checkbox" ng-model="$parent.newMembers[id]" ng-true-value='{"id":"{{ friend.id }}", "name":"{{friend.name}}"}'>
-      {{ friend.name }}
+      <input type="checkbox" ng-model="$parent.newMembers[id]" ng-true-value='{{ name }}'>
+      {{ name }}
     </label>
   </div>
 </div>
