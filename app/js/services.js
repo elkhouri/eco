@@ -215,7 +215,7 @@
     return factory;
   });
 
-  app.factory('Post', function ($firebase, User) {
+  app.factory('Post', function ($firebase, User, Friend) {
     var allPostsRef = new Firebase(FIREBASE_URL + 'posts');
     var postsIndexRef = new Firebase(FIREBASE_URL + 'posts_index');
     var allPosts = $firebase(allPostsRef);
@@ -240,7 +240,7 @@
 
     function addPost(type, title, content, groups, link, image) {
       var groupsObj = {};
-      if (groups.length > 0) {
+      if (groups) {
         groups.forEach(function (group) {
           groupsObj[group.id] = true;
         });
@@ -257,11 +257,19 @@
       }).then(function (ref) {
         viewablePosts.$child(ref.name()).$set(true);
 
-        groups.forEach(function (group) {
-          for (var id in group.members) {
-            postsIndex.$child(id).$child(ref.name()).$set(true);
-          }
-        });
+        if (groups) {
+          groups.forEach(function (group) {
+            for (var id in group.members) {
+              postsIndex.$child(id).$child(ref.name()).$set(true);
+            }
+          });
+        } else {
+          Friend.all().$on('loaded', function (friends) {
+            _.forOwn(friends, function (name, id) {
+              postsIndex.$child(id).$child(ref.name()).$set(true);
+            });
+          });
+        }
       });
     }
 
