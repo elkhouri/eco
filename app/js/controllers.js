@@ -68,7 +68,7 @@
       $scope.groupName = Group.find(groupId).name;
       $scope.newMembers = {};
 
-      Group.getNonMembers(groupId).then(function(data){
+      Friend.getNonMembers(groupId).then(function(data){
         $scope.nonMembers = data;
       });
 

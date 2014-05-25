@@ -81,7 +81,6 @@
     var factory = {};
 
     factory.all = function () {
-      User.getMe().friends = friends;
       return friends;
     };
 
@@ -127,6 +126,20 @@
       return defer.promise;
     };
 
+    factory.getNonMembers = function (groupId) {
+      var defer = $q.defer();
+      friends.$on('loaded', function (friends) {
+        var nonMembers = _.transform(friends, function (acc, name, id) {
+          if (!Group.hasMember(groupId, id)) {
+            acc[id] = name;
+          }
+        });
+        defer.resolve(nonMembers);
+      });
+
+      return defer.promise;
+    };
+
     factory.request = function (friend) {
       var friendRef = User.find(friend.id);
       var friendPending = friendRef.$child('pending').$child(User.getId());
@@ -149,7 +162,7 @@
     return factory;
   });
 
-  app.factory('Group', function ($firebase, $q, User) {
+  app.factory('Group', function ($firebase, User) {
     var groupsRef = new Firebase(User.getUrl() + '/groups');
     var groups = $firebase(groupsRef);
     var factory = {};
@@ -188,20 +201,6 @@
       return _.has(groups.$child(groupId).$child('members'), memberId);
     };
 
-    factory.getNonMembers = function (groupId) {
-      var defer = $q.defer();
-      User.getMe().friends.$on('loaded', function (friends) {
-        var nonMembers = _.transform(friends, function (acc, name, id) {
-          if (!factory.hasMember(groupId, id)) {
-            acc[id] = name;
-          }
-        });
-        defer.resolve(nonMembers);
-      });
-
-      return defer.promise;
-    };
-
     factory.removeMember = function (groupId, oldMemberId) {
       groups.$child(groupId).$child('members').$remove(oldMemberId);
     };
@@ -226,8 +225,7 @@
     var factory = {};
 
     factory.find = function (postId) {
-      var post = allPosts.$child(postId);
-      return post;
+      return allPosts.$child(postId);
     };
 
     factory.all = function () {
