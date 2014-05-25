@@ -39,7 +39,7 @@
     };
 
     factory.getName = function () {
-      return me.facebook.displayName;
+      return me && me.hasOwnProperty('facebook') ? me.facebook.displayName : '';
     };
 
     factory.getId = function () {
