@@ -1,18 +1,9 @@
-.nav,
-.pagination,
-.carousel,
-.panel-title a {
-  cursor: pointer;
-}
-.form-horizontal {
-  padding-top: 10px;
-}
-.tab-content {
- background: #eee;
-}
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
- background: #eee;
-}
-.jumbotron {
-  margin-top: 10px !important;
+.drop-box {
+  background: #F8F8F8;
+  border: 5px dashed #DDD;
+  width: 400px;
+  height: 300px;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
 }

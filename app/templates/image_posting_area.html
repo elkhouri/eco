@@ -31,7 +31,7 @@
       <div class='col-sm-9'>
         <input type="file" ng-file-select="onFileSelect($files)">
         <div class='thumbnail' ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class" ng-show="dropSupported">
-          <img ng-show='!img' src="//placehold.it/400x240&text=Drag+Image+Here">
+          <div ng-show='!img' class='drop-box'>Drop Image Here</div>
           <img ng-show='img' ng-src='{{img}}'>
         </div>
         <div ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
