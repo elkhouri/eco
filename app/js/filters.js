@@ -26,5 +26,12 @@ app.filter('notFriends', function () {
       return !_.has(ecoFriends, fb.id) && !_.has(pendings, fb.id);
     });
   };
+});
 
+app.filter('postExists', function(){
+  return function (posts) {
+    return _.filter(posts, function (post){
+      return post.userId;
+    });
+  };
 });
