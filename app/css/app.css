@@ -18,3 +18,8 @@
 comments .list-group {
   margin-bottom: 0;
 }
+
+comments>.list-group .list-group-item {
+  border-width: 1px 0;
+  border-radius: 0;
+}
