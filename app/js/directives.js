@@ -1,7 +1,5 @@
 'use strict';
 
-/* Directives */
-
 var app = angular.module('eco.directives', []);
 
 app.directive('textPost', function (Post) {
@@ -63,6 +61,28 @@ app.directive('linkPost', function (Post) {
     link: linker
   };
 
+});
+
+app.directive('comments', function(User){
+  var linker = function(scope, element){
+    scope.submit = function(comment){
+      var commentObj = {
+        user: {
+          id: User.getId(),
+          name: User.getName()
+        },
+        content: comment
+      };
+      scope.post.$child('comments').$add(commentObj);
+      scope.comment = '';
+    };
+  };
+
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/comments.html',
+    link: linker
+  };
 });
 
 app.directive('post', function ($compile, $http, $templateCache) {

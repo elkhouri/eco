@@ -1,0 +1,11 @@
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat='comment in post.comments'>
+    <strong>{{ comment.user.name }}</strong>
+    {{ comment.content }}
+  </li>
+  <li class='list-group-item'>
+    <form ng-submit='submit(comment)'>
+      <input type='text' class='form-control' placeholder="Write a comment..." ng-model='comment'>
+    </form>
+  </li>
+</ul>
