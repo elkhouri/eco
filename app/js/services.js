@@ -250,7 +250,10 @@
         content: content,
         link: link,
         image: image,
-        userId: User.getId(),
+        user: {
+          id: User.getId(),
+          name: User.getName()
+        },
         groups: groupsObj
       }).then(function (ref) {
         viewablePosts.$child(ref.name()).$set(true);

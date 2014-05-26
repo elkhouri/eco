@@ -13,7 +13,7 @@ app.filter('byGroup', function () {
     return _.filter(posts, function (post) {
       return _.some(groups, function (group) {
         return _.has(post.groups, group.id) ||
-          _.has(group.members, post.userId);
+          _.has(group.members, post.user.id);
       });
     });
 
@@ -31,7 +31,7 @@ app.filter('notFriends', function () {
 app.filter('postExists', function(){
   return function (posts) {
     return _.filter(posts, function (post){
-      return post.userId;
+      return post.user;
     });
   };
 });
