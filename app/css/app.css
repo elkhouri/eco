@@ -14,3 +14,7 @@
   vertical-align: middle;
   display: table-cell;
 }
+
+comments .list-group {
+  margin-bottom: 0;
+}
