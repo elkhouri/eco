@@ -85,7 +85,7 @@ app.directive('comments', function(User){
   };
 });
 
-app.directive('post', function ($compile, $http, $templateCache) {
+app.directive('post', function ($compile, $http, $templateCache, Post) {
   var getTemplate = function (contentType) {
     var baseUrl = 'templates/';
     var templateMap = {
@@ -103,6 +103,9 @@ app.directive('post', function ($compile, $http, $templateCache) {
   };
 
   var linker = function (scope, element) {
+    scope.removePost = function(){
+      Post.remove(scope.post.$id);
+    };
 
     var loader = getTemplate(scope.post.type);
 

@@ -236,6 +236,10 @@
       return posts;
     };
 
+    factory.remove = function(postId){
+      allPosts.$remove(postId);
+    };
+
     function addPost(type, title, content, groups, link, image) {
       var groupsObj = {};
       if (groups) {
