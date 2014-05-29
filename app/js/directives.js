@@ -4,7 +4,13 @@ var app = angular.module('eco.directives', []);
 
 app.directive('textPost', function (Post) {
   var linker = function (scope, element) {
-    scope.makePost = Post.textPost;
+    scope.makePost = function (postTitle, postContent, postGroups) {
+      Post.textPost(postTitle, postContent, postGroups).then(function () {
+        scope.postTitle = '';
+        scope.postContent = '';
+        scope.postGroups = [];
+      });
+    }
   };
 
   return {
@@ -20,7 +26,14 @@ app.directive('textPost', function (Post) {
 
 app.directive('imagePost', function (Post) {
   var linker = function (scope, element) {
-    scope.makePost = Post.imagePost;
+    scope.makePost = function (postTitle, postContent, postGroups, imageUrl, img) {
+      Post.imagePost(postTitle, postContent, postGroups, imageUrl, img).then(function () {
+        scope.postTitle = '';
+        scope.postContent = '';
+        scope.postGroups = [];
+        scope.img = null;
+      });
+    }
 
     scope.onFileSelect = function ($files) {
       var file = $files[0];
@@ -48,7 +61,14 @@ app.directive('imagePost', function (Post) {
 
 app.directive('linkPost', function (Post) {
   var linker = function (scope, element) {
-    scope.makePost = Post.linkPost;
+    scope.makePost = function (postTitle, postContent, postGroups, postLink) {
+      Post.linkPost(postTitle, postContent, postGroups, postLink).then(function () {
+        scope.postTitle = '';
+        scope.postContent = '';
+        scope.postGroups = [];
+        scope.postLink = '';
+      });
+    }
 
   };
 
@@ -63,9 +83,9 @@ app.directive('linkPost', function (Post) {
 
 });
 
-app.directive('comments', function(User){
-  var linker = function(scope, element){
-    scope.submit = function(comment){
+app.directive('comments', function (User) {
+  var linker = function (scope, element) {
+    scope.submit = function (comment) {
       var commentObj = {
         user: {
           id: User.getId(),
@@ -85,7 +105,7 @@ app.directive('comments', function(User){
   };
 });
 
-app.directive('post', function ($compile, $http, $templateCache, Post) {
+app.directive('post', function ($compile, $http, $templateCache, User, Post) {
   var getTemplate = function (contentType) {
     var baseUrl = 'templates/';
     var templateMap = {
@@ -103,9 +123,13 @@ app.directive('post', function ($compile, $http, $templateCache, Post) {
   };
 
   var linker = function (scope, element) {
-    scope.removePost = function(){
+    scope.removePost = function () {
       Post.remove(scope.post.$id);
     };
+
+    scope.ownPost = function () {
+      return scope.post.user.id === User.getId();
+    }
 
     var loader = getTemplate(scope.post.type);
 

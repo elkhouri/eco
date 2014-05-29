@@ -248,7 +248,7 @@
         });
       }
 
-      allPosts.$add({
+      return allPosts.$add({
         timeStamp: Date.now(),
         type: type,
         title: title,
@@ -280,15 +280,15 @@
     }
 
     factory.textPost = function (title, content, groups) {
-      addPost('text', title, content, groups);
+      return addPost('text', title, content, groups);
     };
 
     factory.linkPost = function (title, content, groups, link) {
-      addPost('link', title, content, groups, link);
+      return addPost('link', title, content, groups, link);
     };
 
     factory.imagePost = function (title, content, groups, imageUrl, imageFile) {
-      addPost('image', title, content, groups, imageUrl, imageFile);
+      return addPost('image', title, content, groups, imageUrl, imageFile);
     };
 
     return factory;
