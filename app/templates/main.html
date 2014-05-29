@@ -16,11 +16,15 @@
   </div>
 </div>
 
+
+
+
+
 <div class='container'>
-  <div class='col-sm-offset-5'>
-    <button class='btn btn-default' ng-click="switchPost('text')">Text</button>
-    <button class='btn btn-default' ng-click="switchPost('image')">Image</button>
-    <button class='btn btn-default' ng-click="switchPost('link')">Link</button>
+  <div class='post-buttons'>
+    <a class='btn btn-default' ng-click="switchPost('text')">Text</a>
+    <a class='btn btn-default' ng-click="switchPost('image')">Image</a>
+    <a class='btn btn-default' ng-click="switchPost('link')">Link</a>
   </div>
 
   <div collapse="nowPosting !== 'text'">
@@ -34,6 +38,10 @@
   </div>
 
   <br>
+
+  
+
+
 
   <div class='col-sm-3' ng-controller='GroupsCtrl'>
     <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
@@ -65,6 +73,11 @@
 
     <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
   </div>
+
+  
+
+
+
 
   <div class='col-sm-6'>
     <label>Filter by Group:</label>
