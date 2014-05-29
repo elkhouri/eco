@@ -36,6 +36,30 @@ comments>.list-group .list-group-item {
   border-radius: 0;
 }
 
+.multiSelect .button {
+  background-image: none;
+}
+
+.multiSelect .button:hover {
+  background-image: none;
+}
+
+.multiSelect .button:focus {
+  border-color: rgba(102, 175, 233, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+  outline: 0 none;
+}
+
+.post-buttons .btn{
+  padding: 10px ;
+  margin-bottom: 3%;
+
+}
+
+.post-buttons{
+   margin-left: 40%;
+}
+
 .live-post{
   margin-top: .5%;
   margin-left: 29.15%;
