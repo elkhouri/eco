@@ -71,8 +71,7 @@
 
     <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='viewingGroups'>
     </select>
-
-    <div ng-repeat='post in posts | postExists | byGroup: viewingGroups'>
+    <div ng-repeat="(id, post) in posts  | postExists | byGroup: viewingGroups | orderBy:'timeStamp':true">
       <post post='post'></post>
     </div>
   </div>

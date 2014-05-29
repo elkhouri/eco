@@ -245,6 +245,7 @@
       }
 
       allPosts.$add({
+        timeStamp: Date.now(),
         type: type,
         title: title,
         content: content,
