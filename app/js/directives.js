@@ -14,8 +14,8 @@ app.directive('textPost', function (Post) {
       });
     }
 
-    scope.groups.$on('loaded', function (snapshot) {
-      scope.groupsSelect = _.transform(snapshot, function (acc, group, id) {
+    scope.groups.$on('value', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
         group.selected = false;
         group.id = id;
         acc.push(group);
@@ -47,8 +47,8 @@ app.directive('imagePost', function (Post) {
       });
     }
 
-    scope.groups.$on('loaded', function (snapshot) {
-      scope.groupsSelect = _.transform(snapshot, function (acc, group, id) {
+    scope.groups.$on('value', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
         group.selected = false;
         group.id = id;
         acc.push(group);
@@ -92,8 +92,8 @@ app.directive('linkPost', function (Post) {
       });
     }
 
-    scope.groups.$on('loaded', function (snapshot) {
-      scope.groupsSelect = _.transform(snapshot, function (acc, group, id) {
+    scope.groups.$on('value', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
         group.selected = false;
         group.id = id;
         acc.push(group);

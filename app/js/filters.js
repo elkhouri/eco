@@ -6,7 +6,7 @@ var app = angular.module('eco.filters', []);
 
 app.filter('byGroup', function () {
   return function (posts, groups) {
-    if (!groups) {
+    if (!groups || groups.length === 0) {
       return posts;
     }
 
