@@ -24,6 +24,14 @@ comments>.list-group .list-group-item {
   border-radius: 0;
 }
 
+.multiSelect .button {
+  background-image: none;
+}
+
+.multiSelect .button:hover {
+  background-image: none;
+}
+
 .post-buttons .btn{
   padding: 10px ;
   margin-bottom: 3%;
