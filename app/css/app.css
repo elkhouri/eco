@@ -1,3 +1,11 @@
+/*=======================
+GLOBAL
+=========================*/
+body {
+  background-color: #F7EDFF;
+  font-family: 'Montserrat', sans-serif;
+}
+
 .nav,
 .pagination,
 .carousel,

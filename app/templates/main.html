@@ -1,3 +1,4 @@
+<!-- NAV BAR -->
 <div class="navbar navbar-default" role="navigation" ng-controller='AuthCtrl'>
   <div class='container-fluid'>
     <div class="navbar-header">
@@ -15,11 +16,12 @@
 
   </div>
 </div>
+<!-- END NAV BAR -->
 
 
 
 
-
+<!-- POST LINKS -->
 <div class='container'>
   <div class='post-buttons'>
     <a class='btn btn-default' ng-click="switchPost('text')">Text</a>
@@ -38,11 +40,11 @@
   </div>
 
   <br>
-
+<!-- END POST LINKS -->
   
 
 
-
+<!-- GROUPS -->
   <div class='col-sm-3' ng-controller='GroupsCtrl'>
     <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
 
@@ -73,12 +75,12 @@
 
     <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
   </div>
-
+<!-- END GROUP -->
   
 
 
 
-
+<!-- FILTERS-->
   <div class='col-sm-6'>
     <label>Filter by Group:</label>
 
@@ -88,8 +90,11 @@
       <post post='post'></post>
     </div>
   </div>
+<!-- END FILTERS -->
 
+<!--FRIEND LISTS -->
   <div class='col-sm-3' ng-controller='FriendsCtrl'>
+
     <div class="btn-group">
       <button class='btn btn-default' ng-click="show('friendList')">Friends</button>
       <button class='btn btn-default' ng-click="show('addingFriends')">Add</button>
@@ -130,4 +135,5 @@
     </div>
 
   </div>
-</div>
+  <!-- END FRIEND LIST -->
+
