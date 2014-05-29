@@ -2,7 +2,7 @@
 <div class="navbar navbar-default" role="navigation" ng-controller='AuthCtrl'>
   <div class='container-fluid'>
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">Eco</a>
+      <a class="navbar-brand eco" href="/"><img src="eco.gif"</a>
     </div>
 
     <ul class='nav navbar-nav navbar-right' ng-show='loggedIn()'>
@@ -18,6 +18,41 @@
 </div>
 <!-- END NAV BAR -->
 
+
+<!-- GROUPS -->
+  <div class='col-sm-2 group-bar' ng-controller='GroupsCtrl'>
+    <div class="add-group" ng-click='addGroupModal()'>
+      Add A Group
+    </div>
+
+    <div ng-repeat='(groupId, group) in groups'>
+      <div ng-click='switchTab($index)' class='row group-row'>
+        <div>
+          <h4> {{ group.name }}</h4>
+        </div>
+        <div class='group-delete'>
+          <a ng-click='removeGroup(groupId)'>X</a>
+        </div>
+      </div>
+      <div collapse='$parent.groupTab !== $index'>
+        <div ng-repeat='(id, name) in group.members'>
+          <div class='row'>
+            <div class='col-sm-6'>
+              {{ name }}
+            </div>
+            <div class='col-sm-3'>
+              <button ng-click='removeMember(groupId, id)'>Delete</button>
+            </div>
+          </div>
+        </div>
+        <button ng-click='addMemberModal(groupId)'>Add Member</button>
+      </div>
+
+    </div>
+
+    <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
+  </div>
+<!-- END GROUP -->
 
 
 
@@ -41,41 +76,6 @@
 
   <br>
 <!-- END POST LINKS -->
-  
-
-
-<!-- GROUPS -->
-  <div class='col-sm-3 group-bar' ng-controller='GroupsCtrl'>
-    <button class='btn btn-default' ng-click='addGroupModal()'>Add A Group</button>
-
-    <div ng-repeat='(groupId, group) in groups'>
-      <div class='row'>
-        <div class='col-sm-8'>
-          <h3 ng-click='switchTab($index)'> {{ group.name }}</h3>
-        </div>
-        <div class='col-sm-3'>
-          <a class='btn btn-danger' ng-click='removeGroup(groupId)'>Delete</a>
-        </div>
-      </div>
-      <div collapse='$parent.groupTab !== $index'>
-        <div ng-repeat='(id, name) in group.members'>
-          <div class='row'>
-            <div class='col-sm-6'>
-              {{ name }}
-            </div>
-            <div class='col-sm-3'>
-              <button ng-click='removeMember(groupId, id)'>Delete</button>
-            </div>
-          </div>
-        </div>
-        <button ng-click='addMemberModal(groupId)'>Add Member</button>
-      </div>
-
-    </div>
-
-    <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
-  </div>
-<!-- END GROUP -->
   
 
 

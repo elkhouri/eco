@@ -1,6 +1,10 @@
 /*=======================
 GLOBAL
 =========================*/
+a:hover {
+  text-decoration: none;
+}
+
 body {
   background-color: #F7EDFF;
   font-family: 'Montserrat', sans-serif;
@@ -43,10 +47,60 @@ comments>.list-group .list-group-item {
 }
 
 /*===================================
+NAVBAR
+=====================================*/
+.navbar {
+  margin-bottom: 0;
+}
+
+.eco img {
+  height: 40px;
+  width: auto;
+  margin-top: -10px;
+}
+
+/*===================================
 GROUPS
 =====================================*/
-.group-bar {
+.add-group {
+  background-color: white;
+  color: #390342;
+}
 
+.group-bar {
+  height: 100vh;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #390342;
+}
+
+.group-delete {
+
+  font-size: 13px;
+  float: right;
+}
+
+.group-delete a:hover {
+  color: red !important;
+}
+
+.group-row {
+  border-radius: 100%;
+  background-color: #390342;
+  height: 125px;
+  width: 125px;
+  margin: 10% 0;
+  padding: 15px;
+  border: 2px solid white;
+  text-align: center;
+  color: white;
+  font-size: 12px;
+}
+
+.group-row:hover {
+  border: 2px solid #D40BF7;
+  color: #D40BF7;
+  transition: ;
 }
 
 
@@ -55,8 +109,7 @@ POST LINKS
 =====================================*/
 .collapse-box {
   height: auto;
-  float: right;
-  width: 85%;
+  width: 80%;
 }
 
 .post-buttons .btn{
