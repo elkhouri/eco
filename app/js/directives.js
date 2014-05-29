@@ -8,9 +8,19 @@ app.directive('textPost', function (Post) {
       Post.textPost(postTitle, postContent, postGroups).then(function () {
         scope.postTitle = '';
         scope.postContent = '';
-        scope.postGroups = [];
+        scope.groupsSelect.forEach(function (g){
+          g.selected = false;
+        });
       });
     }
+
+    scope.groups.$on('loaded', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot, function (acc, group, id) {
+        group.selected = false;
+        group.id = id;
+        acc.push(group);
+      }, []);
+    });
   };
 
   return {
@@ -30,10 +40,20 @@ app.directive('imagePost', function (Post) {
       Post.imagePost(postTitle, postContent, postGroups, imageUrl, img).then(function () {
         scope.postTitle = '';
         scope.postContent = '';
-        scope.postGroups = [];
         scope.img = null;
+        scope.groupsSelect.forEach(function (g){
+          g.selected = false;
+        });
       });
     }
+
+    scope.groups.$on('loaded', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot, function (acc, group, id) {
+        group.selected = false;
+        group.id = id;
+        acc.push(group);
+      }, []);
+    });
 
     scope.onFileSelect = function ($files) {
       var file = $files[0];
@@ -65,10 +85,20 @@ app.directive('linkPost', function (Post) {
       Post.linkPost(postTitle, postContent, postGroups, postLink).then(function () {
         scope.postTitle = '';
         scope.postContent = '';
-        scope.postGroups = [];
         scope.postLink = '';
+        scope.groupsSelect.forEach(function (g){
+          g.selected = false;
+        });
       });
     }
+
+    scope.groups.$on('loaded', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot, function (acc, group, id) {
+        group.selected = false;
+        group.id = id;
+        acc.push(group);
+      }, []);
+    });
 
   };
 

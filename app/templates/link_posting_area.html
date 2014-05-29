@@ -25,10 +25,10 @@
       </div>
     </div>
   </div>
-  <div class='col-sm-2 list-group'>
-    <label>Group:</label>
-    <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='postGroups'>
-    </select>
+  <div class='col-sm-4'>
+    <label>Groups:</label>
+    <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="postGroups">
+    </multi-select>
   </div>
 </div>
 <div class='row'>
