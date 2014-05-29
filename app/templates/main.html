@@ -29,13 +29,13 @@
     <a class='btn btn-default' ng-click="switchPost('link')">Link</a>
   </div>
 
-  <div collapse="nowPosting !== 'text'">
+  <div class="collapse-box" collapse="nowPosting !== 'text'">
     <text-post groups='groups'></text-post>
   </div>
-  <div collapse="nowPosting !== 'image'">
+  <div class="collapse-box" collapse="nowPosting !== 'image'">
     <image-post groups='groups'></image-post>
   </div>
-  <div collapse="nowPosting !== 'link'">
+  <div class="collapse-box" collapse="nowPosting !== 'link'">
     <link-post groups='groups'></link-post>
   </div>
 
@@ -45,12 +45,12 @@
 
 
 <!-- GROUPS -->
-  <div class='col-sm-3' ng-controller='GroupsCtrl'>
-    <button class='btn btn-default' ng-click='addGroupModal()'>Add Groups</button>
+  <div class='col-sm-3 group-bar' ng-controller='GroupsCtrl'>
+    <button class='btn btn-default' ng-click='addGroupModal()'>Add A Group</button>
 
     <div ng-repeat='(groupId, group) in groups'>
       <div class='row'>
-        <div class='col-sm-3'>
+        <div class='col-sm-8'>
           <h3 ng-click='switchTab($index)'> {{ group.name }}</h3>
         </div>
         <div class='col-sm-3'>

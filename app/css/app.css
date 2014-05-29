@@ -32,16 +32,6 @@ comments>.list-group .list-group-item {
   border-radius: 0;
 }
 
-.post-buttons .btn{
-  padding: 10px ;
-  margin-bottom: 3%;
-
-}
-
-.post-buttons{
-   margin-left: 40%;
-}
-
 .live-post{
   margin-top: .5%;
   margin-left: 29.15%;
@@ -52,3 +42,28 @@ comments>.list-group .list-group-item {
   margin-left: 29.15%;
 }
 
+/*===================================
+GROUPS
+=====================================*/
+.group-bar {
+
+}
+
+
+/*===================================
+POST LINKS
+=====================================*/
+.collapse-box {
+  height: auto;
+  float: right;
+  width: 85%;
+}
+
+.post-buttons .btn{
+  padding: 10px ;
+  margin-bottom: 3%;
+}
+
+.post-buttons{
+   margin-left: 40%;
+}
