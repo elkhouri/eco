@@ -84,8 +84,8 @@
   <div class='col-sm-6'>
     <label>Filter by Group:</label>
 
-    <select multiple ng-options='{id: groupId, members: group.members} as group.name for (groupId, group) in groups' ng-model='viewingGroups'>
-    </select>
+    <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingGroups">
+    </multi-select>
     <div ng-repeat="(id, post) in posts  | postExists | byGroup: viewingGroups | orderBy:'timeStamp':true">
       <post post='post'></post>
     </div>
