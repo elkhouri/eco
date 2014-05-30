@@ -37,6 +37,14 @@
       }
     };
 
+    $scope.groups.$on('value', function (snapshot) {
+      $scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
+        group.selected = false;
+        group.id = id;
+        acc.push(group);
+      }, []);
+    });
+
   });
 
   app.controller('GroupsCtrl', function ($scope, $modal, Group, Friend) {

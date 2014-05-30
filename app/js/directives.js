@@ -4,7 +4,23 @@ var app = angular.module('eco.directives', []);
 
 app.directive('textPost', function (Post) {
   var linker = function (scope, element) {
-    scope.makePost = Post.textPost;
+    scope.makePost = function (postTitle, postContent, postGroups) {
+      Post.textPost(postTitle, postContent, postGroups).then(function () {
+        scope.postTitle = '';
+        scope.postContent = '';
+        scope.groupsSelect.forEach(function (g){
+          g.selected = false;
+        });
+      });
+    };
+
+    scope.groups.$on('value', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
+        group.selected = false;
+        group.id = id;
+        acc.push(group);
+      }, []);
+    });
   };
 
   return {
@@ -20,7 +36,24 @@ app.directive('textPost', function (Post) {
 
 app.directive('imagePost', function (Post) {
   var linker = function (scope, element) {
-    scope.makePost = Post.imagePost;
+    scope.makePost = function (postTitle, postContent, postGroups, imageUrl, img) {
+      Post.imagePost(postTitle, postContent, postGroups, imageUrl, img).then(function () {
+        scope.postTitle = '';
+        scope.postContent = '';
+        scope.img = null;
+        scope.groupsSelect.forEach(function (g){
+          g.selected = false;
+        });
+      });
+    };
+
+    scope.groups.$on('value', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
+        group.selected = false;
+        group.id = id;
+        acc.push(group);
+      }, []);
+    });
 
     scope.onFileSelect = function ($files) {
       var file = $files[0];
@@ -48,7 +81,24 @@ app.directive('imagePost', function (Post) {
 
 app.directive('linkPost', function (Post) {
   var linker = function (scope, element) {
-    scope.makePost = Post.linkPost;
+    scope.makePost = function (postTitle, postContent, postGroups, postLink) {
+      Post.linkPost(postTitle, postContent, postGroups, postLink).then(function () {
+        scope.postTitle = '';
+        scope.postContent = '';
+        scope.postLink = '';
+        scope.groupsSelect.forEach(function (g){
+          g.selected = false;
+        });
+      });
+    };
+
+    scope.groups.$on('value', function (snapshot) {
+      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
+        group.selected = false;
+        group.id = id;
+        acc.push(group);
+      }, []);
+    });
 
   };
 
@@ -63,9 +113,9 @@ app.directive('linkPost', function (Post) {
 
 });
 
-app.directive('comments', function(User){
-  var linker = function(scope, element){
-    scope.submit = function(comment){
+app.directive('comments', function (User) {
+  var linker = function (scope, element) {
+    scope.submit = function (comment) {
       var commentObj = {
         user: {
           id: User.getId(),
@@ -85,7 +135,7 @@ app.directive('comments', function(User){
   };
 });
 
-app.directive('post', function ($compile, $http, $templateCache) {
+app.directive('post', function ($compile, $http, $templateCache, User, Post) {
   var getTemplate = function (contentType) {
     var baseUrl = 'templates/';
     var templateMap = {
@@ -103,6 +153,13 @@ app.directive('post', function ($compile, $http, $templateCache) {
   };
 
   var linker = function (scope, element) {
+    scope.removePost = function () {
+      Post.remove(scope.post.$id);
+    };
+
+    scope.ownPost = function () {
+      return scope.post.user.id === User.getId();
+    };
 
     var loader = getTemplate(scope.post.type);
 

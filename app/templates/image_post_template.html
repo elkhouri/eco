@@ -1,7 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <strong>{{ post.user.name }}</strong> - {{ post.title }}
-    <div class='pull-right'>{{ post.type | uppercase}}</div>
+    <div class='pull-right'>
+      {{ post.timeStamp | date : 'short'}}
+      <span class='glyphicon glyphicon-remove' ng-if='ownPost()' ng-click='removePost()'></span>
+    </div>
   </div>
   <div class="panel-body">
     {{ post.content }}

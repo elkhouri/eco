@@ -1,20 +1,22 @@
 {
-  "name": "angular-express",
-  "description": "AngularJS with Express",
-  "version": "0.0.0",
-  "homepage": "https://github.com/elkhouri/angular-express",
+  "name": "Eco",
+  "description": "Mini Facebook with groups",
+  "version": "0.1.0",
+  "homepage": "https://github.com/elkhouri/eco",
   "license": "MIT",
   "private": true,
   "dependencies": {
     "angular": "~1.3.0",
+    "angular-sanitize": "~1.3.0",
     "angular-ui-router": "~0.2.10",
     "angular-bootstrap": "~0.11.0",
-    "ng-file-upload": "~1.4.0",
-    "angular-sanitize": "~1.3.0",
     "bootstrap": "~3.1.1",
     "firebase": "~1.0.15",
     "angularfire": "~0.7.1",
-    "lodash": "~2.4.1"
+    "ng-file-upload": "*",
+    "isteven-angular-multiselect": "*",
+    "angular-local-storage": "*",
+    "lodash": "*"
   },
   "resolutions": {
     "angular": "~1.3.0"

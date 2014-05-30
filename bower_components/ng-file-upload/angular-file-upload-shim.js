@@ -47,7 +47,7 @@ if (window.XMLHttpRequest) {
 				};
 			}
 		}
-
+		
 		patchXHR("open", function(orig) {
 			return function(m, url, b) {
 				initializeUploadListener(this);
@@ -99,11 +99,11 @@ if (window.XMLHttpRequest) {
 					var config = {
 						url: xhr.__url,
 						complete: function(err, fileApiXHR) {
-							if (!err && xhr.__listeners['load'])
+							if (!err && xhr.__listeners['load']) 
 								xhr.__listeners['load']({type: 'load', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
-							if (!err && xhr.__listeners['loadend'])
+							if (!err && xhr.__listeners['loadend']) 
 								xhr.__listeners['loadend']({type: 'loadend', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
-							if (err === 'abort' && xhr.__listeners['abort'])
+							if (err === 'abort' && xhr.__listeners['abort']) 
 								xhr.__listeners['abort']({type: 'abort', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
 							if (fileApiXHR.status !== undefined) Object.defineProperty(xhr, 'status', {get: function() {return fileApiXHR.status}});
 							if (fileApiXHR.statusText !== undefined) Object.defineProperty(xhr, 'statusText', {get: function() {return fileApiXHR.statusText}});

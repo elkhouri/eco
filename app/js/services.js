@@ -73,7 +73,7 @@
     return factory;
   });
 
-  app.factory('Friend', function ($q, $http, $firebase, User, Group) {
+  app.factory('Friend', function ($q, $http, $firebase, localStorageService, User, Group) {
     var friendsRef = new Firebase(User.getUrl() + '/friends');
     var pendingRef = new Firebase(User.getUrl() + '/pending');
     var friends = $firebase(friendsRef);
@@ -111,17 +111,33 @@
       return pendingInvites;
     };
 
-    factory.getFbFriends = function () {
+    function updateFbFriends() {
       var defer = $q.defer();
+
       $http.get('https://graph.facebook.com/v1.0/me/friends', {
         params: {
           access_token: User.getMe().facebook.accessToken
         }
       }).then(function (friends) {
+        localStorageService.set('fbFriends', friends.data.data);
         defer.resolve(friends.data.data);
       }, function (e) {
         defer.reject(e);
       });
+
+      return defer.promise;
+    }
+
+    factory.getFbFriends = function () {
+      var defer = $q.defer();
+      if (localStorageService.get('fbFriends') !== null) {
+        updateFbFriends();
+        defer.resolve(localStorageService.get('fbFriends'));
+      } else {
+        updateFbFriends().then(function (data) {
+          defer.resolve(data);
+        });
+      }
 
       return defer.promise;
     };
@@ -228,12 +244,25 @@
       return allPosts.$child(postId);
     };
 
+    function trimPostIndex(postId) {
+      viewablePosts.$remove(postId);
+    }
+
     factory.all = function () {
-      viewablePosts.$on('child_added', function (post) {
-        posts.push(factory.find(post.snapshot.name));
+      viewablePosts.$on('child_added', function (child) {
+        var post = factory.find(child.snapshot.name);
+        if (!post.user) {
+          trimPostIndex(post.$id);
+        } else {
+          posts.push(post);
+        }
       });
 
       return posts;
+    };
+
+    factory.remove = function (postId) {
+      allPosts.$remove(postId);
     };
 
     function addPost(type, title, content, groups, link, image) {
@@ -244,7 +273,8 @@
         });
       }
 
-      allPosts.$add({
+      return allPosts.$add({
+        timeStamp: Date.now(),
         type: type,
         title: title,
         content: content,
@@ -275,15 +305,15 @@
     }
 
     factory.textPost = function (title, content, groups) {
-      addPost('text', title, content, groups);
+      return addPost('text', title, content, groups);
     };
 
     factory.linkPost = function (title, content, groups, link) {
-      addPost('link', title, content, groups, link);
+      return addPost('link', title, content, groups, link);
     };
 
     factory.imagePost = function (title, content, groups, imageUrl, imageFile) {
-      addPost('image', title, content, groups, imageUrl, imageFile);
+      return addPost('image', title, content, groups, imageUrl, imageFile);
     };
 
     return factory;

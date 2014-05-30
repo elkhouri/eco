@@ -7,6 +7,8 @@
     'firebase',
     'angularFileUpload',
     'ngSanitize',
+    'multi-select',
+    'LocalStorageModule',
     'eco.controllers',
     'eco.filters',
     'eco.services',
