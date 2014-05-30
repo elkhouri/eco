@@ -134,7 +134,7 @@
         updateFbFriends();
         defer.resolve(localStorageService.get('fbFriends'));
       } else {
-        updateFbFriends().then(function(data){
+        updateFbFriends().then(function (data) {
           defer.resolve(data);
         });
       }
@@ -244,9 +244,18 @@
       return allPosts.$child(postId);
     };
 
+    function trimPostIndex(postId) {
+      viewablePosts.$remove(postId);
+    }
+
     factory.all = function () {
-      viewablePosts.$on('child_added', function (post) {
-        posts.push(factory.find(post.snapshot.name));
+      viewablePosts.$on('child_added', function (child) {
+        var post = factory.find(child.snapshot.name);
+        if (!post.user) {
+          trimPostIndex(post.$id);
+        } else {
+          posts.push(post);
+        }
       });
 
       return posts;
