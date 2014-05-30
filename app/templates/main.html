@@ -30,10 +30,10 @@
         <div>
           <h4> {{ group.name }}</h4>
         </div>
-        <div class='group-delete'>
+      </div>
+      <div class='group-delete'>
           <a ng-click='removeGroup(groupId)'>X</a>
         </div>
-      </div>
       <div collapse='$parent.groupTab !== $index'>
         <div ng-repeat='(id, name) in group.members'>
           <div class='row'>
