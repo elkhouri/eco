@@ -6,10 +6,33 @@ a:hover {
 }
 
 body {
-  background-color: #F7EDFF;
+ background-color: #F7EDFF;
   font-family: 'Montserrat', sans-serif;
 }
 
+/*=======LOGIN========*/
+.ffont{
+  font-size: 150px;
+  color: white;
+  text-align: center;
+  margin-top: 1%;
+}
+#loginheader{
+  background: rgba(255,255,255, 0.80);
+  width: 50%;
+  text-align:center;
+  margin-left:25%;
+  padding:15px;
+} 
+
+#loginbutton{
+  width:200px;
+  height:30px;
+  font-size:15px;
+  margin-left: 40%;
+  margin-top:1%;
+
+}
 .nav,
 .pagination,
 .carousel,
@@ -82,6 +105,11 @@ NAVBAR
   width: auto;
   margin-top: -10px;
   margin-left: 25%;
+}
+
+.login {
+  background-image: url(../img/loginbg.jpg);
+  background-size: cover;
 }
 
 /*===================================

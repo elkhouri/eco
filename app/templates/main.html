@@ -113,7 +113,7 @@
     <div ng-repeat='friend in fbFriends | notFriends: friends: pendingInvites' collapse="showing !== 'addingFriends'">
       <div class='row'>
         <div class='col-sm-3'>
-          <button ng-click='requestFriend(friend)'>Request</button>
+          <button ng-click='requestFriend(friend)'>+</button>
         </div>
         <div class='col-sm-9'>
           {{friend.name}}
