@@ -22,6 +22,6 @@
     "commit": "1ec780647e891234f804b6b497e6d39ed0bafb1a"
   },
   "_source": "git://github.com/isteven/angular-multi-select.git",
-  "_target": "~1.1",
+  "_target": "*",
   "_originalSource": "isteven-angular-multiselect"
 }
