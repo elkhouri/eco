@@ -12,7 +12,7 @@ app.directive('textPost', function (Post) {
           g.selected = false;
         });
       });
-    }
+    };
 
     scope.groups.$on('value', function (snapshot) {
       scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
@@ -45,7 +45,7 @@ app.directive('imagePost', function (Post) {
           g.selected = false;
         });
       });
-    }
+    };
 
     scope.groups.$on('value', function (snapshot) {
       scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
@@ -90,7 +90,7 @@ app.directive('linkPost', function (Post) {
           g.selected = false;
         });
       });
-    }
+    };
 
     scope.groups.$on('value', function (snapshot) {
       scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
@@ -159,7 +159,7 @@ app.directive('post', function ($compile, $http, $templateCache, User, Post) {
 
     scope.ownPost = function () {
       return scope.post.user.id === User.getId();
-    }
+    };
 
     var loader = getTemplate(scope.post.type);
 

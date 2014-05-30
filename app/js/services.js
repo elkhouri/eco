@@ -73,7 +73,7 @@
     return factory;
   });
 
-  app.factory('Friend', function ($q, $http, $firebase, User, Group) {
+  app.factory('Friend', function ($q, $http, $firebase, localStorageService, User, Group) {
     var friendsRef = new Firebase(User.getUrl() + '/friends');
     var pendingRef = new Firebase(User.getUrl() + '/pending');
     var friends = $firebase(friendsRef);
@@ -111,17 +111,33 @@
       return pendingInvites;
     };
 
-    factory.getFbFriends = function () {
+    function updateFbFriends() {
       var defer = $q.defer();
+
       $http.get('https://graph.facebook.com/v1.0/me/friends', {
         params: {
           access_token: User.getMe().facebook.accessToken
         }
       }).then(function (friends) {
+        localStorageService.set('fbFriends', friends.data.data);
         defer.resolve(friends.data.data);
       }, function (e) {
         defer.reject(e);
       });
+
+      return defer.promise;
+    }
+
+    factory.getFbFriends = function () {
+      var defer = $q.defer();
+      if (localStorageService.get('fbFriends') !== null) {
+        updateFbFriends();
+        defer.resolve(localStorageService.get('fbFriends'));
+      } else {
+        updateFbFriends().then(function(data){
+          defer.resolve(data);
+        });
+      }
 
       return defer.promise;
     };
@@ -236,7 +252,7 @@
       return posts;
     };
 
-    factory.remove = function(postId){
+    factory.remove = function (postId) {
       allPosts.$remove(postId);
     };
 
