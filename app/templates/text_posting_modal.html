@@ -1,19 +1,13 @@
 <div class="text-post-container">
-  <div>
-    <div class='col-lg-8'>
+
+    <div class='col-lg-14 text-box'>
       <div class='row'>
-        <div class='col-sm-3'>
-          <label>Title</label>
-        </div>
-        <div class="col-md-9">
+        <div class="col-md-12">
           <input class='form-control' type="text" ng-model='postTitle' placeholder='Title'>
         </div>
       </div>
       <div class='row'>
-        <div class='col-sm-3'>
-          <label>Content</label>
-        </div>
-        <div class='col-md-9'>
+        <div class='col-md-12'>
           <textarea class="form-control" rows="3" ng-model='postContent' placeholder='Content'></textarea>
         </div>
       </div>
@@ -30,5 +24,4 @@
         <button type='submit' class='btn btn-default' ng-click='makePost(postTitle, postContent, postGroups); $close();'>Post</button>
       </div>
     </div>
-  </div>
 </div>

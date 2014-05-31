@@ -190,11 +190,15 @@ TEXT POST MODAL
 }
 
 .modal-content {
-  width: 700px;
+  width: 600px;
   border-radius: 0px;
 }
 
 input.form-control, textarea.form-control,
 .multiSelect {
   border-radius: 0px;
+}
+
+.text-box {
+  display: block;
 }
