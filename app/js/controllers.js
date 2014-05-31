@@ -230,6 +230,7 @@
     $scope.showing = 'friendList';
 
     function groupToPages() {
+      $scope.fbFriends = _.sortBy($scope.fbFriends, 'name');
       for (var i = 0; i < $scope.fbFriends.length; i++) {
         if (i % $scope.itemsPerPage === 0) {
           $scope.paginatedFriends[Math.floor(i / $scope.itemsPerPage)] = [$scope.fbFriends[i]];
