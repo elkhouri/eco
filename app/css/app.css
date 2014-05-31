@@ -124,8 +124,17 @@ GROUPS
 .add-group {
   width:150px;
   text-align: center;
+ border-color: rgb(196,154,111);
+ border-radius: 5px;
+ border-width: 2px;
+  height:35px;
+  width:125px;
+  margin-top:10%;
 
+}
 
+.pstype{
+  margin-bottom:1%;
 }
 
 .add-group:hover {
@@ -138,22 +147,47 @@ GROUPS
 
 }
 
-.group-delete {
-  font-size: 13px;
-  float: right;
+.groupmembername{
+  margin-left:3%;
+  margin-top:3%;
 }
+
+.addMember{
+  margin-left:8%;
+  cursor:pointer; 
+}
+
+.deletemember{
+  margin-left:-80%;
+  margin-top:25%;
+}
+
+
+.groups{
+ background-color: rgb(196,154,111);
+ border-radius: 5px;
+ color:white;
+ margin-left:1%;
+ margin-top:5%;
+ margin-bottom:10%;
+ height:35px;
+width:125px;
+text-align:center;
+padding-bottom: 20px;
+}
+.group-delete {
+  margin-left:55%;
+  margin-top:-20%;
+  color:black !important;
+}
+
 
 .group-delete a:hover {
   color: red !important;
 }
 
-.group-row {
-  width:150px;
-  text-align:center;
-}
 
-.group-row:hover {
-}
+
 
 
 /*===================================
@@ -167,12 +201,16 @@ POST LINKS
 .post-buttons .btn{
   padding: 10px ;
   margin-bottom: 3%;
+  margin-top:5%;
 }
 
 .post-buttons{
    margin-left: 40%;
 }
 
+.btn-group{
+  margin-top:8%;
+  margin-left:10%;
 
 /*==================================
 TEXT POST MODAL

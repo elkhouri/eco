@@ -27,49 +27,47 @@
 <div class='row'>
   <div class='col-sm-3 group-bar'>
     <!-- FILTERS-->
-    <h3>filter:</h3>
-    <h5>group</h5>
+    <h3>filter by:</h3>
+    <h4>group</h4>
     <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingGroups">
     </multi-select>
 
-    <br>post type
-    <br>
+    <br><h4>post type</h4>
 
     <multi-select input-model="postTypeSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingTypes">
     </multi-select>
     <!-- END FILTERS -->
-
+    <br>
+    <br>
+    <h3> your groups.</h3>
     <div ng-controller='GroupsCtrl'>
 
 
       <div ng-repeat='(groupId, group) in groups'>
-        <div ng-click='switchTab($index)' class='row group-row btn-warning'>
-          <div>
-            <h4> {{ group.name }}</h4>
+        <div ng-click='switchTab($index)' class="btn groups">
+             {{ group.name }}
           </div>
-        </div>
         <div class='group-delete'>
-          <a ng-click='removeGroup(groupId)'>X</a>
+          <a ng-click='removeGroup(groupId)' class="glyphicon glyphicon-remove"></a>
         </div>
         <div collapse='$parent.groupTab !== $index'>
           <div ng-repeat='(id, name) in group.members'>
             <div class='row'>
-              <div class='col-sm-6'>
+              <div class="col-sm-6 groupmembername">
                 {{ name }}
               </div>
               <div class='col-sm-3'>
-                <button ng-click='removeMember(groupId, id)'>Delete</button>
+                <a class="deletemember glyphicon glyphicon-remove" ng-click='removeMember(groupId, id)'></a>
               </div>
             </div>
           </div>
-          <button ng-click='addMemberModal(groupId)'>Add Member</button>
+          <a class="addMember" ng-click='addMemberModal(groupId)'>add member</a>
         </div>
 
       </div>
 
       <h3 ng-if='!groups.$getIndex().length'>no groups,<br>add one!</h3>
-      <div class="add-group" ng-click='addGroupModal()'>
-        add a group
+      <div class="add-group btn glyphicon glyphicon-plus" ng-click='addGroupModal()'>
       </div>
     </div>
   </div>
@@ -87,7 +85,7 @@
     <br>
 
     <div ng-repeat="(id, post) in posts | postExists | byGroup: viewingGroups | byType: viewingTypes | orderBy:'timeStamp':true">
-      <post post='post'></post>
+      <post post='post' ng-controller='PostsCtrl'></post>
     </div>
 
   </div>

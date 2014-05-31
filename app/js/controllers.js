@@ -228,15 +228,13 @@
     $scope.itemsPerPage = 20;
     $scope.currentPage = 1;
 
-    function groupToPages(){
+    function groupToPages() {
       for (var i = 0; i < $scope.fbFriends.length; i++) {
         if (i % $scope.itemsPerPage === 0) {
-          $scope.paginatedFriends[Math.floor(i / $scope.itemsPerPage)] = [ $scope.fbFriends[i] ];
+          $scope.paginatedFriends[Math.floor(i / $scope.itemsPerPage)] = [$scope.fbFriends[i]];
         } else {
           $scope.paginatedFriends[Math.floor(i / $scope.itemsPerPage)].push($scope.fbFriends[i]);
         }
-
-
       }
     }
 
@@ -253,6 +251,18 @@
         $scope.showing = '';
       }
     };
+  });
+
+  app.controller('CommentsCtrl', function ($scope, User) {
+    $scope.pic = User.find($scope.comment.user.id).pic;
+  });
+
+  app.controller('RepliesCtrl', function($scope, User){
+    $scope.pic = User.find($scope.reply.user.id).pic;
+  });
+
+  app.controller('PostsCtrl', function($scope, User){
+    $scope.pic = User.find($scope.post.user.id).pic;
   });
 
 }());

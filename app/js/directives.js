@@ -4,10 +4,6 @@ var app = angular.module('eco.directives', []);
 
 app.directive('comments', function (User) {
   var linker = function (scope, element) {
-//    scope.getPic = function(userId) {
-//      return User.find(userId).pic;
-//    };
-
     scope.submitComment = function (comment) {
       var commentObj = {
         user: {
@@ -64,10 +60,6 @@ app.directive('post', function ($compile, $http, $templateCache, User, Post) {
     scope.ownPost = function () {
       return scope.post.user.id === User.getId();
     };
-//
-//    scope.posterPic = function() {
-//      return User.find(scope.post.user.id).pic;
-//    };
 
     var loader = getTemplate(scope.post.type);
 
@@ -80,9 +72,6 @@ app.directive('post', function ($compile, $http, $templateCache, User, Post) {
 
   return {
     restrict: 'E',
-    scope: {
-      post: '='
-    },
     link: linker
   };
 });
