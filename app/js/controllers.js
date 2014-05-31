@@ -68,18 +68,10 @@
         }, []);
       });
 
-      var modalInstance = $modal.open({
+      $modal.open({
         templateUrl: 'templates/text_posting_modal.html',
         scope: modalScope
       });
-
-      //      modalInstance.result.then(function () {
-      //        Group.add(modalScope.newGroup);
-      //        modalScope.newGroup = {
-      //          name: '',
-      //          members: {}
-      //        };
-      //      });
     };
 
     $scope.imagePostModal = function () {
@@ -116,18 +108,10 @@
       };
 
 
-      var modalInstance = $modal.open({
+      $modal.open({
         templateUrl: 'templates/image_posting_modal.html',
         scope: modalScope
       });
-
-      //      modalInstance.result.then(function () {
-      //        Group.add($scope.newGroup);
-      //        $scope.newGroup = {
-      //          name: '',
-      //          members: {}
-      //        };
-      //      });
     };
 
     $scope.linkPostModal = function () {
@@ -152,18 +136,10 @@
         }, []);
       });
 
-      var modalInstance = $modal.open({
+      $modal.open({
         templateUrl: 'templates/link_posting_modal.html',
         scope: modalScope
       });
-
-      //      modalInstance.result.then(function () {
-      //        Group.add($scope.newGroup);
-      //        $scope.newGroup = {
-      //          name: '',
-      //          members: {}
-      //        };
-      //      });
     };
 
     $scope.switchPost = function (postType) {
@@ -184,20 +160,22 @@
 
   });
 
-  app.controller('GroupsCtrl', function ($scope, $modal, Group, Friend) {
+  app.controller('GroupsCtrl', function ($rootScope, $scope, $modal, Group, Friend) {
     $scope.friends = Friend.all();
     $scope.removeGroup = Group.remove;
     $scope.removeMember = Group.removeMember;
 
     $scope.addGroupModal = function () {
-      $scope.newGroup = {
+      var modalScope = $rootScope.$new(true);
+
+      modalScope.newGroup = {
         name: '',
         members: {}
       };
 
       var modalInstance = $modal.open({
         templateUrl: 'templates/add_group_modal.html',
-        scope: $scope
+        scope: modalScope
       });
 
       modalInstance.result.then(function () {
@@ -246,9 +224,25 @@
     $scope.requestFriend = Friend.request;
     $scope.cancelRequest = Friend.cancelRequest;
     $scope.fbFriends = [];
+    $scope.paginatedFriends = [];
+    $scope.itemsPerPage = 20;
+    $scope.currentPage = 1;
+
+    function groupToPages(){
+      for (var i = 0; i < $scope.fbFriends.length; i++) {
+        if (i % $scope.itemsPerPage === 0) {
+          $scope.paginatedFriends[Math.floor(i / $scope.itemsPerPage)] = [ $scope.fbFriends[i] ];
+        } else {
+          $scope.paginatedFriends[Math.floor(i / $scope.itemsPerPage)].push($scope.fbFriends[i]);
+        }
+
+
+      }
+    }
 
     Friend.getFbFriends().then(function (friends) {
       $scope.fbFriends = friends;
+      groupToPages();
     });
 
     $scope.showing = '';
