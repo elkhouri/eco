@@ -6,6 +6,7 @@
   app.controller('AuthCtrl', function ($scope, $state, User) {
     $scope.loggedIn = User.loggedIn;
     $scope.name = User.getName();
+    $scope.pic = User.find(User.getId()).pic;
 
     $scope.login = function () {
       User.login().then(function () {
@@ -19,10 +20,11 @@
     };
   });
 
-  app.controller('MainCtrl', function ($rootScope, $scope, $modal, Group, Post) {
+  app.controller('MainCtrl', function ($rootScope, $scope, $modal, Group, Post, User) {
     $scope.groups = Group.all();
     $scope.posts = Post.all();
     $scope.makePost = Post.add;
+    $scope.me = User.find(User.getId());
 
     $scope.nowPosting = '';
     $scope.postGroup = {};

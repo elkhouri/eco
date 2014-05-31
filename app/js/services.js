@@ -5,7 +5,7 @@
 
   var FIREBASE_URL = 'https://eco.firebaseio.com/';
 
-  app.factory('User', function ($firebase, $firebaseSimpleLogin) {
+  app.factory('User', function ($q, $http, $firebase, $firebaseSimpleLogin) {
     var auth = $firebaseSimpleLogin(new Firebase(FIREBASE_URL));
     var usersRef = new Firebase(FIREBASE_URL + 'users');
     var users = $firebase(usersRef);
@@ -13,13 +13,25 @@
     var factory = {};
     var me = {};
 
-    function createUser(user) {
-      users[user.id] = {
-        name: user.displayName,
-        $priority: user.id
-      };
+    function getProfilePic(accessToken) {
+      return $http.get('https://graph.facebook.com/v1.0/me/picture?redirect=false', {
+        params: {
+          access_token: accessToken
+        }
+      });
+    }
 
-      users.$save();
+    function createUser(user) {
+      getProfilePic(user.accessToken).then(function (pic){
+        users[user.id] = {
+          name: user.displayName,
+          $priority: user.id,
+          pic: pic.data.data.url
+        };
+
+        users.$save();
+      });
+
     }
 
     factory.checkAuth = function () {
