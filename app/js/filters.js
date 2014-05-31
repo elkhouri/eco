@@ -42,6 +42,18 @@ app.filter('notFriends', function () {
   };
 });
 
+app.filter('isFriends', function(User, Friend){
+  return function(comments){
+    if(!comments){
+      return comments;
+    }
+
+    return _.filter(comments, function(comment){
+      return User.getId() === comment.user.id || Friend.find(comment.user.id);
+    });
+  };
+});
+
 app.filter('postExists', function () {
   return function (posts) {
     return _.filter(posts, function (post) {

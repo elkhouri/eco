@@ -227,6 +227,7 @@
     $scope.paginatedFriends = [];
     $scope.itemsPerPage = 20;
     $scope.currentPage = 1;
+    $scope.showing = 'friendList';
 
     function groupToPages() {
       for (var i = 0; i < $scope.fbFriends.length; i++) {
@@ -243,7 +244,6 @@
       groupToPages();
     });
 
-    $scope.showing = '';
     $scope.show = function (name) {
       if (name !== $scope.showing) {
         $scope.showing = name;
