@@ -179,8 +179,7 @@ TEXT POST MODAL
 }
 
 div.modal-content {
-  opacity: 0.9;
-  background-color: #ccc;
+  background-color: rgba(196,154,111, .9);
 }
 
 .modal-content {
@@ -188,10 +187,14 @@ div.modal-content {
   border-radius: 0px;
 }
 
-input.form-control, textarea.form-control,
+.modal-dialog {
+  margin-top: 50px;
+}
+
+/*input.form-control, textarea.form-control,
 .multiSelect {
   border-radius: 0px;
-}
+}*/
 
 .text-box {
   display: block;
@@ -201,16 +204,40 @@ input.form-control, textarea.form-control,
   margin-bottom: 20px;
 }
 
-.text-title h2 {
+.text-title h2, .text-post-container h2 {
   margin-bottom: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+#who {
+  margin-left: 15px;
 }
 
 .group-post-text {
-  margin-left: 15px;
+  margin-left: 30px;
   width: 200px;
   display: inline-block;
+  float: right;
+  margin-top: -55px;
 }
 
 .live-post {
-  float: right;
+  text-align: center;
+  margin-right: 12px;
+  margin-top: 30px;
+  margin-left: 30% !important;
+  border: solid 3px white;
+  padding: -20px -40;
+  width: 200px;
+}
+
+.live-post:hover {
+  border: solid 3px white;
+  background-color: white;
+  font-color: #a47443;
+}
+
+.live-post h2:hover {
+  color: #a47443;
 }
