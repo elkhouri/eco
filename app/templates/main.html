@@ -9,7 +9,7 @@
 
     <ul class='nav navbar-nav navbar-right' ng-show='loggedIn()'>
       <li>
-        <p class='navbar-text'>Hello, {{ name }}</p>
+        <p class='navbar-text'>{{ name }}</p>
       </li>
       <li>
         <a ng-click="logout()">Logout</a>
@@ -24,6 +24,10 @@
 <!-- GROUPS -->
 <div class='row'>
   <div class='col-sm-2 group-bar' ng-controller='GroupsCtrl'>
+    <label>Filter by Group:</label>
+
+    <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingGroups">
+    </multi-select>
     <div class="add-group" ng-click='addGroupModal()'>
       Add A Group
     </div>
@@ -79,10 +83,6 @@
     <br>
 
     <!-- FILTERS-->
-    <label>Filter by Group:</label>
-
-    <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingGroups">
-    </multi-select>
     <div ng-repeat="(id, post) in posts | postExists | byGroup: viewingGroups | orderBy:'timeStamp':true">
       <post post='post'></post>
     </div>
