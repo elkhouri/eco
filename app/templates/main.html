@@ -62,23 +62,13 @@
   <!-- END GROUP -->
 
   <div class='col-sm-7'>
-    <!--  Post Links  -->
+    <!--  Post Buttons  -->
     <div class='post-buttons'>
-      <a class='btn btn-default' ng-click="switchPost('text')">Text</a>
-      <a class='btn btn-default' ng-click="switchPost('image')">Image</a>
-      <a class='btn btn-default' ng-click="switchPost('link')">Link</a>
+      <button class='btn btn-default' ng-click="textPostModal()">Text</button>
+      <button class='btn btn-default' ng-click="imagePostModal()">Image</button>
+      <button class='btn btn-default' ng-click="linkPostModal()">Link</button>
     </div>
-
-    <div class="collapse-box" collapse="nowPosting !== 'text'">
-      <text-post groups='groups'></text-post>
-    </div>
-    <div class="collapse-box" collapse="nowPosting !== 'image'">
-      <image-post groups='groups'></image-post>
-    </div>
-    <div class="collapse-box" collapse="nowPosting !== 'link'">
-      <link-post groups='groups'></link-post>
-    </div>
-    <!-- END POST LINKS -->
+    <!-- END POST Buttons -->
 
     <br>
 
