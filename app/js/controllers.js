@@ -179,7 +179,7 @@
       });
 
       modalInstance.result.then(function () {
-        Group.add($scope.newGroup);
+        Group.add(modalScope.newGroup);
         $scope.newGroup = {
           name: '',
           members: {}
