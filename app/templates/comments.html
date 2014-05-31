@@ -10,7 +10,7 @@
           {{ reply.content }}
         </div>
         <div class="list-group-item">
-          <form ng-submit='submitReply(reply, commentId)'>
+          <form ng-submit="submitReply(reply, commentId); reply = '';">
             <input type='text' class='form-control' placeholder="Write a reply..." ng-model='reply'>
           </form>
         </div>
