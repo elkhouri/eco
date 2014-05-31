@@ -9,9 +9,6 @@
 
     <ul class='nav navbar-nav navbar-right' ng-show='loggedIn()'>
       <li>
-        <div class='navbar-brand'>
-        <img ng-src='{{pic}}'>
-          </div>
         <p class='navbar-text'>{{ name }}</p>
       </li>
       <li>
@@ -22,6 +19,7 @@
   </div>
 </div>
 <!-- END NAV BAR -->
+
 
 <!-- GROUPS -->
 <div class='row'>
@@ -68,18 +66,6 @@
 
       <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
     </div>
-         <div class="add-group glyphicon glyphicon-plus btn btn-primary" ng-click='addGroupModal()'>
-      </div>
-  </div>
-   </div>
-         <div class="add-group glyphicon glyphicon-plus btn btn-primary" ng-click='addGroupModal()'>
-      </div>
-  </div>
-   </div>
-         <div class="add-group glyphicon glyphicon-plus btn btn-primary" ng-click='addGroupModal()'>
-      </div>
-  </div>
-   </div>
          <div class="add-group glyphicon glyphicon-plus btn btn-primary" ng-click='addGroupModal()'>
       </div>
   </div>
