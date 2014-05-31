@@ -8,7 +8,7 @@ app.directive('textPost', function (Post) {
       Post.textPost(postTitle, postContent, postGroups).then(function () {
         scope.postTitle = '';
         scope.postContent = '';
-        scope.groupsSelect.forEach(function (g){
+        scope.groupsSelect.forEach(function (g) {
           g.selected = false;
         });
       });
@@ -41,7 +41,7 @@ app.directive('imagePost', function (Post) {
         scope.postTitle = '';
         scope.postContent = '';
         scope.img = null;
-        scope.groupsSelect.forEach(function (g){
+        scope.groupsSelect.forEach(function (g) {
           g.selected = false;
         });
       });
@@ -86,7 +86,7 @@ app.directive('linkPost', function (Post) {
         scope.postTitle = '';
         scope.postContent = '';
         scope.postLink = '';
-        scope.groupsSelect.forEach(function (g){
+        scope.groupsSelect.forEach(function (g) {
           g.selected = false;
         });
       });
@@ -115,7 +115,7 @@ app.directive('linkPost', function (Post) {
 
 app.directive('comments', function (User) {
   var linker = function (scope, element) {
-    scope.submit = function (comment) {
+    scope.submitComment = function (comment) {
       var commentObj = {
         user: {
           id: User.getId(),
@@ -125,6 +125,18 @@ app.directive('comments', function (User) {
       };
       scope.post.$child('comments').$add(commentObj);
       scope.comment = '';
+    };
+
+    scope.submitReply = function (reply, commentId) {
+      var replyObj = {
+        user: {
+          id: User.getId(),
+          name: User.getName()
+        },
+        content: reply
+      };
+      scope.post.$child('comments').$child(commentId).$child('replies').$add(replyObj);;
+      scope.reply = '';
     };
   };
 

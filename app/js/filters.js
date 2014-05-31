@@ -27,3 +27,11 @@ app.filter('notFriends', function () {
     });
   };
 });
+
+app.filter('postExists', function () {
+  return function (posts) {
+    return _.filter(posts, function (post) {
+      return post.user;
+    });
+  };
+});
