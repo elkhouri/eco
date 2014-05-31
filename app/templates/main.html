@@ -32,7 +32,7 @@
     <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingGroups">
     </multi-select>
 
-    <br> post type</br>
+    <br>post type</br>
 
     <multi-select input-model="postTypeSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingTypes">
     </multi-select>
@@ -67,10 +67,10 @@
       </div>
 
       <h3 ng-if='!groups.$getIndex().length'>no groups,<br>add one!</h3>
-    </div>
-         <div class="add-group" ng-click='addGroupModal()'>
-          add a group
+      <div class="add-group" ng-click='addGroupModal()'>
+        add a group
       </div>
+    </div>
   </div>
   <!-- END GROUP -->
 
@@ -118,7 +118,7 @@
           <button ng-click='requestFriend(friend)'>+</button>
         </div>
         <div class='col-sm-9'>
-          {{friend.name}}
+          {{::friend.name}}
         </div>
       </div>
     </div>
