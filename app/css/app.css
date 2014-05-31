@@ -9,6 +9,10 @@ body {
 font-family: 'Montserrat', sans-serif;
 }
 
+.modal-backdrop-in {
+  opacity: .8;
+}
+
 /*=======LOGIN========*/
 .ffont{
   font-size: 150px;
@@ -235,4 +239,11 @@ div.modal-content {
 
 .live-post h2:hover {
   color: #a47443;
+}
+
+/*===============================
+IMAGE POST MODAL
+=================================*/
+.picture-box {
+  padding: 30px 40px 70px 40px;
 }
