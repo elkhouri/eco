@@ -6,8 +6,8 @@ a:hover {
 }
 
 body {
- background-color: #F7EDFF;
-  font-family: 'Montserrat', sans-serif;
+ background-color:rgba(245,222,179,0.3);
+font-family: 'Montserrat', sans-serif;
 }
 
 /*=======LOGIN========*/
@@ -115,28 +115,20 @@ NAVBAR
 /*===================================
 GROUPS
 =====================================*/
+
 .add-group {
-  background-color: white;
-  color: white;
-  background-color: #390342;
+  width:150px;
   text-align: center;
-  padding: 20px 0px;
-  border: 2px solid white;
-  font-size: 23px;
 }
 
 .add-group:hover {
-  color: white;
-  background-color: white;
-  color: #390342;
-  border: 2px solid white;
+  font-weight: bold;
 }
 
 .group-bar {
-  height: 100%;
-  padding-left: 0;
-  padding-right: 0;
-  background-color: #390342;
+  height:100%;
+  padding-left: 5%;
+
 }
 
 .group-delete {
