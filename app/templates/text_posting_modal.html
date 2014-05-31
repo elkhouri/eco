@@ -2,25 +2,24 @@
 
     <div class='col-lg-14 text-box'>
       <div class='row'>
-        <div class="col-md-12">
-          <input class='form-control' type="text" ng-model='postTitle' placeholder='Title'>
+        <div class="col-md-12 text-title">
+          <h2>share your thoughts</h2>
+          <input class='form-control' type="text" ng-model='postTitle' placeholder='title'>
         </div>
       </div>
       <div class='row'>
-        <div class='col-md-12'>
-          <textarea class="form-control" rows="3" ng-model='postContent' placeholder='Content'></textarea>
+        <div class='col-md-12 text-content'>
+          <textarea class="form-control" rows="3" ng-model='postContent' placeholder='content'></textarea>
         </div>
       </div>
     </div>
     <div class="row group-text-post">
-      <div>
-        <label>Groups:</label>
-
+      <div class="group-post-text">
         <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="postGroups">
         </multi-select>
       </div>
 
-      <div class='col-sm-offset-3 col-sm-2 live-post'>
+      <div class='col-sm-3 col-sm-2 live-post'>
         <button type='submit' class='btn btn-default' ng-click='makePost(postTitle, postContent, postGroups); $close();'>Post</button>
       </div>
     </div>

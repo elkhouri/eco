@@ -6,7 +6,7 @@ a:hover {
 }
 
 body {
- background-color:rgba(245,222,179,0.3);
+ background-color: #E9E4DD;
 font-family: 'Montserrat', sans-serif;
 }
 
@@ -98,6 +98,7 @@ NAVBAR
 =====================================*/
 .navbar {
   margin-bottom: 0;
+  background-color: #FDF6ED;
 }
 
 .eco img {
@@ -186,7 +187,13 @@ POST LINKS
 TEXT POST MODAL
 ====================================*/
 .text-post-container {
-  padding: 60px 40px 70px 40px;
+  padding: 30px 40px 70px 40px;
+  opacity: 1.0;
+}
+
+div.modal-content {
+  opacity: 0.9;
+  background-color: #ccc;
 }
 
 .modal-content {
@@ -201,4 +208,22 @@ input.form-control, textarea.form-control,
 
 .text-box {
   display: block;
+}
+
+.text-title, .text-content {
+  margin-bottom: 20px;
+}
+
+.text-title h2 {
+  margin-bottom: 20px;
+}
+
+.group-post-text {
+  margin-left: 15px;
+  width: 200px;
+  display: inline-block;
+}
+
+.live-post {
+  float: right;
 }
