@@ -3,7 +3,7 @@
   <div class='container-fluid'>
     <div class="navbar-header">
       <a class="navbar-brand eco" href="/">
-        <div class = "eco">coffeehouse</div>
+        <div class="eco">coffeehouse</div>
       </a>
     </div>
 
@@ -85,7 +85,7 @@
     <br>
 
     <div ng-repeat="(id, post) in posts | postExists | byGroup: viewingGroups | byType: viewingTypes | orderBy:'timeStamp':true">
-      <post post='post'></post>
+      <post post='post' ng-controller='PostsCtrl'></post>
     </div>
 
   </div>
@@ -111,15 +111,16 @@
       </div>
     </div>
 
-    <div ng-repeat='friend in fbFriends | notFriends: friends: pendingInvites' collapse="showing !== 'addingFriends'">
-      <div class='row'>
+    <div collapse="showing !== 'addingFriends'">
+      <div class='row' ng-repeat='friend in paginatedFriends[currentPage - 1] | notFriends: friends: pendingInvites'>
         <div class='col-sm-3'>
-          <button ng-click='requestFriend(friend)'>+</button>
+          <button ng-click='::requestFriend(friend)'>+</button>
         </div>
         <div class='col-sm-9'>
           {{::friend.name}}
         </div>
       </div>
+      <pager total-items="fbFriends.length" items-per-page="itemsPerPage" ng-model="currentPage"></pager>
     </div>
 
     <div ng-repeat='(id, name) in pendingInvites' collapse="showing !== 'pending'">

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <img ng-src='{{ posterPic() }}'>  <strong>{{ post.user.name }}</strong> - {{ post.title }}
+    <img ng-src='{{ pic }}'>  <strong>{{ post.user.name }}</strong> - {{ post.title }}
     <div class='pull-right'>
       {{ post.timeStamp | date : 'short'}}
       <span class='glyphicon glyphicon-remove' ng-if='ownPost()' ng-click='removePost()'></span>
