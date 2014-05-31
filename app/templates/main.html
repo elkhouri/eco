@@ -10,7 +10,7 @@
     <ul class='nav navbar-nav navbar-right' ng-show='loggedIn()'>
       <li>
         <div class='navbar-brand'>
-          <img ng-src='{{pic}}'>
+          <img class="hello" ng-src='{{pic}}'>
         </div>
         <p class='navbar-text'>{{ name }}</p>
       </li>
@@ -102,7 +102,7 @@
 
     <div ng-repeat='(id, name) in friends' collapse="showing !== 'friendList'">
       <div class='row'>
-          <a class ="glyphicon glyphicon-remove friendList" ng-click='removeFriend(id)'></a>
+          <a class ="glyphicon glyphicon-remove" ng-click='removeFriend(id)'></a>
           {{name}}
         </div>
       </div>
