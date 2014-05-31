@@ -1,12 +1,12 @@
 <div class="list-group">
-  <div ng-repeat='(commentId, comment) in post.comments'>
+  <div ng-repeat='(commentId, comment) in post.comments' ng-controller='CommentsCtrl'>
     <div class="list-group-item">
-      <img ng-src='{{ getPic(comment.user.id) }}'> <strong>{{ comment.user.name }}</strong>
+      <img ng-src='{{ pic }}'> <strong>{{ comment.user.name }}</strong>
       {{ comment.content }}
 
       <div class='col-sm-offset-1'>
-        <div class="list-group-item" ng-repeat='(replyId, reply) in comment.replies'>
-          <img ng-src='{{ getPic(reply.user.id) }}'> <strong>{{ reply.user.name }}</strong>
+        <div class="list-group-item" ng-repeat='(replyId, reply) in comment.replies' ng-controller='RepliesCtrl'>
+          <img ng-src='{{ pic }}'> <strong>{{ reply.user.name }}</strong>
           {{ reply.content }}
         </div>
         <div class="list-group-item">

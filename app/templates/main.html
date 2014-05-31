@@ -87,7 +87,7 @@
     <br>
 
     <div ng-repeat="(id, post) in posts | postExists | byGroup: viewingGroups | byType: viewingTypes | orderBy:'timeStamp':true">
-      <post post='post'></post>
+      <post post='post' ng-controller='PostsCtrl'></post>
     </div>
 
   </div>
