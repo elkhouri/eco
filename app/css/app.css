@@ -188,3 +188,11 @@ POST LINKS
 .post-buttons{
    margin-left: 40%;
 }
+
+
+/*==================================
+TEXT POST MODAL
+====================================*/
+.text-post-container {
+  padding: 20px;
+}
