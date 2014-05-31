@@ -20,6 +20,20 @@ app.filter('byGroup', function () {
   };
 });
 
+app.filter('byType', function(){
+  return function (posts, types){
+    if (!types || types.length === 0) {
+      return posts;
+    }
+
+    return _.filter(posts, function (post) {
+      return _.some(types, function (type) {
+        return post.type === type.name;
+      });
+    });
+  };
+});
+
 app.filter('notFriends', function () {
   return function (fbFriends, ecoFriends, pendings) {
     return _.filter(fbFriends, function (fb) {

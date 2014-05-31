@@ -29,6 +29,21 @@
     $scope.postText = '';
     $scope.postTitle = '';
 
+    $scope.postTypeSelect = [
+      {
+        name: 'text',
+        selected: false
+      },
+      {
+        name: 'image',
+        selected: false
+      },
+      {
+        name: 'link',
+        selected: false
+      }
+    ];
+
     $scope.textPostModal = function () {
       var modalScope = $rootScope.$new(true);
       modalScope.makePost = function (postTitle, postContent, postGroups) {
@@ -54,13 +69,13 @@
         scope: modalScope
       });
 
-//      modalInstance.result.then(function () {
-//        Group.add(modalScope.newGroup);
-//        modalScope.newGroup = {
-//          name: '',
-//          members: {}
-//        };
-//      });
+      //      modalInstance.result.then(function () {
+      //        Group.add(modalScope.newGroup);
+      //        modalScope.newGroup = {
+      //          name: '',
+      //          members: {}
+      //        };
+      //      });
     };
 
     $scope.imagePostModal = function () {
@@ -102,13 +117,13 @@
         scope: modalScope
       });
 
-//      modalInstance.result.then(function () {
-//        Group.add($scope.newGroup);
-//        $scope.newGroup = {
-//          name: '',
-//          members: {}
-//        };
-//      });
+      //      modalInstance.result.then(function () {
+      //        Group.add($scope.newGroup);
+      //        $scope.newGroup = {
+      //          name: '',
+      //          members: {}
+      //        };
+      //      });
     };
 
     $scope.linkPostModal = function () {
@@ -138,17 +153,17 @@
         scope: modalScope
       });
 
-//      modalInstance.result.then(function () {
-//        Group.add($scope.newGroup);
-//        $scope.newGroup = {
-//          name: '',
-//          members: {}
-//        };
-//      });
+      //      modalInstance.result.then(function () {
+      //        Group.add($scope.newGroup);
+      //        $scope.newGroup = {
+      //          name: '',
+      //          members: {}
+      //        };
+      //      });
     };
 
-    $scope.switchPost = function (postType){
-      if($scope.nowPosting === postType){
+    $scope.switchPost = function (postType) {
+      if ($scope.nowPosting === postType) {
         $scope.nowPosting = '';
       } else {
         $scope.nowPosting = postType;
@@ -162,8 +177,6 @@
         acc.push(group);
       }, []);
     });
-
-//    $scope.
 
   });
 
@@ -196,7 +209,7 @@
       $scope.groupName = Group.find(groupId).name;
       $scope.newMembers = {};
 
-      Friend.getNonMembers(groupId).then(function(data){
+      Friend.getNonMembers(groupId).then(function (data) {
         $scope.nonMembers = data;
       });
 

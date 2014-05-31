@@ -23,41 +23,51 @@
 
 <!-- GROUPS -->
 <div class='row'>
-  <div class='col-sm-2 group-bar' ng-controller='GroupsCtrl'>
+  <div class='col-sm-2 group-bar'>
+    <!-- FILTERS-->
     <label>Filter by Group:</label>
 
     <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingGroups">
     </multi-select>
-    <div class="add-group" ng-click='addGroupModal()'>
-      Add A Group
-    </div>
 
-    <div ng-repeat='(groupId, group) in groups'>
-      <div ng-click='switchTab($index)' class='row group-row'>
-        <div>
-          <h4> {{ group.name }}</h4>
-        </div>
+    And / Or Post Type:
+
+    <multi-select input-model="postTypeSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingTypes">
+    </multi-select>
+    <!-- END FILTERS -->
+
+    <div ng-controller='GroupsCtrl'>
+      <div class="add-group" ng-click='addGroupModal()'>
+        Add A Group
       </div>
-      <div class='group-delete'>
-        <a ng-click='removeGroup(groupId)'>X</a>
-      </div>
-      <div collapse='$parent.groupTab !== $index'>
-        <div ng-repeat='(id, name) in group.members'>
-          <div class='row'>
-            <div class='col-sm-6'>
-              {{ name }}
-            </div>
-            <div class='col-sm-3'>
-              <button ng-click='removeMember(groupId, id)'>Delete</button>
-            </div>
+
+      <div ng-repeat='(groupId, group) in groups'>
+        <div ng-click='switchTab($index)' class='row group-row'>
+          <div>
+            <h4> {{ group.name }}</h4>
           </div>
         </div>
-        <button ng-click='addMemberModal(groupId)'>Add Member</button>
+        <div class='group-delete'>
+          <a ng-click='removeGroup(groupId)'>X</a>
+        </div>
+        <div collapse='$parent.groupTab !== $index'>
+          <div ng-repeat='(id, name) in group.members'>
+            <div class='row'>
+              <div class='col-sm-6'>
+                {{ name }}
+              </div>
+              <div class='col-sm-3'>
+                <button ng-click='removeMember(groupId, id)'>Delete</button>
+              </div>
+            </div>
+          </div>
+          <button ng-click='addMemberModal(groupId)'>Add Member</button>
+        </div>
+
       </div>
 
+      <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
     </div>
-
-    <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
   </div>
   <!-- END GROUP -->
 
@@ -72,11 +82,10 @@
 
     <br>
 
-    <!-- FILTERS-->
-    <div ng-repeat="(id, post) in posts | postExists | byGroup: viewingGroups | orderBy:'timeStamp':true">
+    <div ng-repeat="(id, post) in posts | postExists | byGroup: viewingGroups | byType: viewingTypes | orderBy:'timeStamp':true">
       <post post='post'></post>
     </div>
-    <!-- END FILTERS -->
+
   </div>
 
 
