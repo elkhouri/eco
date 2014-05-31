@@ -97,14 +97,15 @@ NAVBAR
 =====================================*/
 .navbar {
   margin-bottom: 0;
+  background-color: rgb(196,154,111);
+}
+.eco{
+  color:white;
+  font-weight: bold;
+  font-size:30px;
+  margin-left:18%;
 }
 
-.eco img {
-  height: 40px;
-  width: auto;
-  margin-top: -10px;
-  margin-left: 25%;
-}
 
 .login {
   background-image: url(../img/loginbg.jpg);
