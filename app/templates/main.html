@@ -3,7 +3,7 @@
   <div class='container-fluid'>
     <div class="navbar-header">
       <a class="navbar-brand eco" href="/">
-        <img src="eco.gif">
+        <div class = "eco">coffeehouse</div>
       </a>
     </div>
 
@@ -25,26 +25,24 @@
 
 <!-- GROUPS -->
 <div class='row'>
-  <div class='col-sm-2 group-bar'>
+  <div class='col-sm-3 group-bar'>
     <!-- FILTERS-->
-    <label>Filter by Group:</label>
-
+    <h3>filter:</h3>
+    <h5>group</h5>
     <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingGroups">
     </multi-select>
 
-    And / Or Post Type:
+    <br>post type</br>
 
     <multi-select input-model="postTypeSelect" button-label="name" item-label="name" tick-property="selected" output-model="viewingTypes">
     </multi-select>
     <!-- END FILTERS -->
 
     <div ng-controller='GroupsCtrl'>
-      <div class="add-group" ng-click='addGroupModal()'>
-        Add A Group
-      </div>
+
 
       <div ng-repeat='(groupId, group) in groups'>
-        <div ng-click='switchTab($index)' class='row group-row'>
+        <div ng-click='switchTab($index)' class='row group-row btn-warning'>
           <div>
             <h4> {{ group.name }}</h4>
           </div>
@@ -68,12 +66,15 @@
 
       </div>
 
-      <h3 ng-if='!groups.$getIndex().length'>No Groups. Add One!</h3>
+      <h3 ng-if='!groups.$getIndex().length'>no groups,<br>add one!</h3>
+      <div class="add-group" ng-click='addGroupModal()'>
+        add a group
+      </div>
     </div>
   </div>
   <!-- END GROUP -->
 
-  <div class='col-sm-7'>
+  <div class='col-sm-6'>
     <!--  Post Buttons  -->
     <div class='post-buttons'>
       <button class='btn btn-default' ng-click="textPostModal()">Text</button>
@@ -117,7 +118,7 @@
           <button ng-click='requestFriend(friend)'>+</button>
         </div>
         <div class='col-sm-9'>
-          {{friend.name}}
+          {{::friend.name}}
         </div>
       </div>
     </div>

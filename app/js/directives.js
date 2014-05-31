@@ -2,119 +2,12 @@
 
 var app = angular.module('eco.directives', []);
 
-app.directive('textPost', function (Post) {
-  var linker = function (scope, element) {
-    scope.makePost = function (postTitle, postContent, postGroups) {
-      Post.textPost(postTitle, postContent, postGroups).then(function () {
-        scope.postTitle = '';
-        scope.postContent = '';
-        scope.groupsSelect.forEach(function (g) {
-          g.selected = false;
-        });
-      });
-    };
-
-    scope.groups.$on('value', function (snapshot) {
-      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
-        group.selected = false;
-        group.id = id;
-        acc.push(group);
-      }, []);
-    });
-  };
-
-  return {
-    restrict: 'E',
-    scope: {
-      groups: '='
-    },
-    templateUrl: 'templates/text_posting_area.html',
-    link: linker
-  };
-
-});
-
-app.directive('imagePost', function (Post) {
-  var linker = function (scope, element) {
-    scope.makePost = function (postTitle, postContent, postGroups, imageUrl, img) {
-      Post.imagePost(postTitle, postContent, postGroups, imageUrl, img).then(function () {
-        scope.postTitle = '';
-        scope.postContent = '';
-        scope.img = null;
-        scope.groupsSelect.forEach(function (g) {
-          g.selected = false;
-        });
-      });
-    };
-
-    scope.groups.$on('value', function (snapshot) {
-      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
-        group.selected = false;
-        group.id = id;
-        acc.push(group);
-      }, []);
-    });
-
-    scope.onFileSelect = function ($files) {
-      var file = $files[0];
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        scope.$apply(function () {
-          scope.img = e.target.result;
-        });
-      };
-      reader.readAsDataURL(file);
-    };
-  };
-
-
-  return {
-    restrict: 'E',
-    scope: {
-      groups: '='
-    },
-    templateUrl: 'templates/image_posting_area.html',
-    link: linker
-  };
-
-});
-
-app.directive('linkPost', function (Post) {
-  var linker = function (scope, element) {
-    scope.makePost = function (postTitle, postContent, postGroups, postLink) {
-      Post.linkPost(postTitle, postContent, postGroups, postLink).then(function () {
-        scope.postTitle = '';
-        scope.postContent = '';
-        scope.postLink = '';
-        scope.groupsSelect.forEach(function (g) {
-          g.selected = false;
-        });
-      });
-    };
-
-    scope.groups.$on('value', function (snapshot) {
-      scope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
-        group.selected = false;
-        group.id = id;
-        acc.push(group);
-      }, []);
-    });
-
-  };
-
-  return {
-    restrict: 'E',
-    scope: {
-      groups: '='
-    },
-    templateUrl: 'templates/link_posting_area.html',
-    link: linker
-  };
-
-});
-
 app.directive('comments', function (User) {
   var linker = function (scope, element) {
+//    scope.getPic = function(userId) {
+//      return User.find(userId).pic;
+//    };
+
     scope.submitComment = function (comment) {
       var commentObj = {
         user: {
@@ -171,6 +64,10 @@ app.directive('post', function ($compile, $http, $templateCache, User, Post) {
     scope.ownPost = function () {
       return scope.post.user.id === User.getId();
     };
+//
+//    scope.posterPic = function() {
+//      return User.find(scope.post.user.id).pic;
+//    };
 
     var loader = getTemplate(scope.post.type);
 
