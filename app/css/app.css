@@ -199,8 +199,10 @@ TEXT POST MODAL
 
 .modal-content {
   width: 700px;
+  border-radius: 0px;
 }
 
-.group-text-post {
-  display: block;
+input.form-control, textarea.form-control,
+.multiSelect {
+  border-radius: 0px;
 }

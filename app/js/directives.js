@@ -135,8 +135,7 @@ app.directive('comments', function (User) {
         },
         content: reply
       };
-      scope.post.$child('comments').$child(commentId).$child('replies').$add(replyObj);;
-      scope.reply = '';
+      scope.post.$child('comments').$child(commentId).$child('replies').$add(replyObj);
     };
   };
 

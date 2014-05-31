@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="row col-lg-8">
+    <div class="row group-text-post">
       <div>
         <label>Groups:</label>
 
@@ -27,7 +27,7 @@
       </div>
 
       <div class='col-sm-offset-3 col-sm-2 live-post'>
-        <button type='submit' class='btn btn-default' ng-click='makePost(postTitle, postContent, postGroups)'>Post</button>
+        <button type='submit' class='btn btn-default' ng-click='makePost(postTitle, postContent, postGroups); $close();'>Post</button>
       </div>
     </div>
   </div>
