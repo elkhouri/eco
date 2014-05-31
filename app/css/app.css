@@ -194,5 +194,13 @@ POST LINKS
 TEXT POST MODAL
 ====================================*/
 .text-post-container {
-  padding: 20px;
+  padding: 60px 40px 70px 40px;
+}
+
+.modal-content {
+  width: 700px;
+}
+
+.group-text-post {
+  display: block;
 }
