@@ -1,11 +1,27 @@
-<ul class="list-group">
-  <li class="list-group-item" ng-repeat='comment in post.comments'>
-    <strong>{{ comment.user.name }}</strong>
-    {{ comment.content }}
-  </li>
-  <li class='list-group-item'>
-    <form ng-submit='submit(comment)'>
+<div class="list-group">
+  <div ng-repeat='(commentId, comment) in post.comments'>
+    <div class="list-group-item">
+      <strong>{{ comment.user.name }}</strong>
+      {{ comment.content }}
+
+      <div class='col-sm-offset-1'>
+        <div class="list-group-item" ng-repeat='(replyId, reply) in comment.replies'>
+          <strong>{{ reply.user.name }}</strong>
+          {{ reply.content }}
+        </div>
+        <div class="list-group-item">
+          <form ng-submit='submitReply(reply, commentId)'>
+            <input type='text' class='form-control' placeholder="Write a reply..." ng-model='reply'>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class='list-group-item'>
+    <form ng-submit='submitComment(comment)'>
       <input type='text' class='form-control' placeholder="Write a comment..." ng-model='comment'>
     </form>
-  </li>
-</ul>
+  </div>
+</div>
