@@ -20,6 +20,7 @@ font-family: 'Montserrat', sans-serif;
   text-align: center;
   margin-top: 1%;
 }
+
 #loginheader{
   background: rgba(255,255,255, 0.80);
   width: 50%;
@@ -216,11 +217,11 @@ POST LINKS
 .btn-group{
   margin-top:8%;
   margin-left:10%;
-  background-color: rgb(196,154,111);
 
 /*==================================
 TEXT POST MODAL
 ====================================*/
+
 .text-post-container {
   padding: 30px 40px 70px 40px;
   opacity: 1.0;
