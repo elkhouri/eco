@@ -19,7 +19,7 @@
     };
   });
 
-  app.controller('MainCtrl', function ($scope, Group, Post) {
+  app.controller('MainCtrl', function ($rootScope, $scope, $modal, Group, Post) {
     $scope.groups = Group.all();
     $scope.posts = Post.all();
     $scope.makePost = Post.add;
@@ -28,6 +28,124 @@
     $scope.postGroup = {};
     $scope.postText = '';
     $scope.postTitle = '';
+
+    $scope.textPostModal = function () {
+      var modalScope = $rootScope.$new(true);
+      modalScope.makePost = function (postTitle, postContent, postGroups) {
+        Post.textPost(postTitle, postContent, postGroups).then(function () {
+          modalScope.postTitle = '';
+          modalScope.postContent = '';
+          modalScope.groupsSelect.forEach(function (g) {
+            g.selected = false;
+          });
+        });
+      };
+
+      $scope.groups.$on('value', function (snapshot) {
+        modalScope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
+          group.selected = false;
+          group.id = id;
+          acc.push(group);
+        }, []);
+      });
+
+      var modalInstance = $modal.open({
+        templateUrl: 'templates/text_posting_modal.html',
+        scope: modalScope
+      });
+
+//      modalInstance.result.then(function () {
+//        Group.add(modalScope.newGroup);
+//        modalScope.newGroup = {
+//          name: '',
+//          members: {}
+//        };
+//      });
+    };
+
+    $scope.imagePostModal = function () {
+      var modalScope = $rootScope.$new(true);
+
+      modalScope.makePost = function (postTitle, postContent, postGroups, imageUrl, img) {
+        Post.imagePost(postTitle, postContent, postGroups, imageUrl, img).then(function () {
+          modalScope.postTitle = '';
+          modalScope.postContent = '';
+          modalScope.img = null;
+          modalScope.groupsSelect.forEach(function (g) {
+            g.selected = false;
+          });
+        });
+      };
+
+      $scope.groups.$on('value', function (snapshot) {
+        modalScope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
+          group.selected = false;
+          group.id = id;
+          acc.push(group);
+        }, []);
+      });
+
+      modalScope.onFileSelect = function ($files) {
+        var file = $files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          modalScope.$apply(function () {
+            modalScope.img = e.target.result;
+          });
+        };
+        reader.readAsDataURL(file);
+      };
+
+
+      var modalInstance = $modal.open({
+        templateUrl: 'templates/image_posting_modal.html',
+        scope: modalScope
+      });
+
+//      modalInstance.result.then(function () {
+//        Group.add($scope.newGroup);
+//        $scope.newGroup = {
+//          name: '',
+//          members: {}
+//        };
+//      });
+    };
+
+    $scope.linkPostModal = function () {
+      var modalScope = $rootScope.$new(true);
+
+      modalScope.makePost = function (postTitle, postContent, postGroups, postLink) {
+        Post.linkPost(postTitle, postContent, postGroups, postLink).then(function () {
+          modalScope.postTitle = '';
+          modalScope.postContent = '';
+          modalScope.postLink = '';
+          modalScope.groupsSelect.forEach(function (g) {
+            g.selected = false;
+          });
+        });
+      };
+
+      $scope.groups.$on('value', function (snapshot) {
+        modalScope.groupsSelect = _.transform(snapshot.snapshot.value, function (acc, group, id) {
+          group.selected = false;
+          group.id = id;
+          acc.push(group);
+        }, []);
+      });
+
+      var modalInstance = $modal.open({
+        templateUrl: 'templates/link_posting_modal.html',
+        scope: modalScope
+      });
+
+//      modalInstance.result.then(function () {
+//        Group.add($scope.newGroup);
+//        $scope.newGroup = {
+//          name: '',
+//          members: {}
+//        };
+//      });
+    };
 
     $scope.switchPost = function (postType){
       if($scope.nowPosting === postType){
@@ -44,6 +162,8 @@
         acc.push(group);
       }, []);
     });
+
+//    $scope.
 
   });
 
