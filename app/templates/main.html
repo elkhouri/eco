@@ -102,10 +102,7 @@
 
     <div ng-repeat='(id, name) in friends' collapse="showing !== 'friendList'">
       <div class='row'>
-        <div class='col-sm-3'>
-          <button ng-click='removeFriend(id)'>Remove</button>
-        </div>
-        <div class='col-sm-9'>
+          <a class ="glyphicon glyphicon-remove friendList" ng-click='removeFriend(id)'></a>
           {{name}}
         </div>
       </div>
