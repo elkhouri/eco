@@ -6,7 +6,9 @@
   app.controller('AuthCtrl', function ($scope, $state, User) {
     $scope.loggedIn = User.loggedIn;
     $scope.name = User.getName();
-    $scope.pic = User.find(User.getId()).pic;
+    User.checkAuth().then(function () {
+      $scope.pic = User.find(User.getId()).pic;
+    });
 
     $scope.login = function () {
       User.login().then(function () {
