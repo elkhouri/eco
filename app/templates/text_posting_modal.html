@@ -1,19 +1,26 @@
 <div class="text-post-container">
 
     <div class='col-lg-12 text-box'>
+
       <div class='row'>
         <div class="col-md-12 text-title">
           <h2>what are you thinking?</h2>
           <input class='form-control' type="text" ng-model='postTitle' placeholder='title'>
         </div>
       </div>
+
       <div class='row'>
         <div class='col-md-12 text-content'>
           <textarea class="form-control" rows="10" ng-model='postContent'></textarea>
         </div>
       </div>
+
     </div>
+
+
+
     <h2 id="who">who can see this?</h2>
+    
     <div class="row group-text-post">
       <div class="group-post-text">
         <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="postGroups">

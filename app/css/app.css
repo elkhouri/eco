@@ -277,6 +277,7 @@ div.modal-content {
   border: solid 3px white;
   padding: -20px -40;
   width: 200px;
+  border-radius: 5px;
 }
 
 .live-post:hover {
@@ -300,4 +301,48 @@ IMAGE POST MODAL
 =================================*/
 .picture-box {
   padding: 30px 40px 70px 40px;
+}
+
+.drop-box {
+  height: 110px;
+  color: #a47443;
+}
+
+.image-text-header {
+  margin-top: 52px;
+  float: right;
+}
+
+.image-title {
+  margin-bottom: 20px;
+}
+
+.image-border {
+  border-right: 1px dotted white;
+  padding: 0px 30px 0px 0;
+}
+
+.picture-box h2, .picture-box {
+  color: white;
+}
+
+.image-groups h2 {
+  display: inline-block;
+}
+
+.image-group-select {
+  margin: -15px 0px 0px 50px !important;
+}
+
+.image-lp {
+  margin-top: -30px;
+    margin-bottom: 50px;
+    margin-left: 33% !important;
+}
+
+/*=================================
+LINK POST MODAL
+===================================*/
+.link-box, .link-box h2 {
+  margin-left: 10px;
 }

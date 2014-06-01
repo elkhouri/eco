@@ -1,16 +1,17 @@
-<div class='row'>
-  <div class='col-sm-8 picture-box'>
+<div class='row picture-box'>
+  <div class='col-sm-5'>
 
         <h2>post a picture</h2>
+      <div class="image-border">
         <div class='row'>
-          <div class='col-sm-9'>
+          <div class='col-sm-12'>
             <input type='url' class="form-control" ng-model='imageUrl' placeholder='image url'>
           </div>
         </div>
 
 
         <div class='row'>
-          <div class='col-sm-9'>
+          <div class='col-sm-12'>
             or
             <input type="file" class='form-control' ng-file-select="onFileSelect($files)" placeholder='image upload'>
             or
@@ -21,29 +22,28 @@
             <div ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
           </div>
         </div>
-    
+      </div>
 
   </div>
-
-
-        <div class='row'>
-          <div class="col-sm-9">
-            <input class='form-control' type="text" ng-model='postTitle' placeholder='title'>
+          
+          <div class="col-sm-7">
+            <h2 class="image-text-header">...and tell a story</h2>
+            <input class='form-control image-title' type="text" ng-model='postTitle' placeholder='title'>
+            <textarea class="form-control" rows="8" ng-model='postContent'></textarea>
           </div>
-        </div>
+
 
 
         <div class='row'>
           <div class='col-sm-9'>
-            <textarea class="form-control" rows="3" ng-model='postContent'></textarea>
           </div>
         </div>
 
 
         
-  <div class='col-sm-4'>
-    <label>Groups:</label>
-    <multi-select input-model="groupsSelect" button-label="name" item-label="name" tick-property="selected" output-model="postGroups">
+  <div class='col-sm-12 image-groups'>
+    <h2>who can see this?</h2>
+    <multi-select input-model="groupsSelect" class="image-group-select" button-label="name" item-label="name" tick-property="selected" output-model="postGroups">
     </multi-select>
   </div>
 </div>
@@ -52,7 +52,7 @@
 
 
 <div class='row'>
-  <div class='col-sm-offset-3 col-sm-2 live-post-image'>
-    <button type='submit' class='btn btn-default' ng-click='makePost(postTitle, postContent, postGroups, imageUrl, img); $close();'>Post</button>
-  </div>
+  <div class='col-sm-3 live-post image-lp' ng-click='makePost(postTitle, postContent, postGroups); $close();'>
+        <p>reveal</p>
+      </div>
 </div>
