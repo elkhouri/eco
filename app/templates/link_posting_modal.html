@@ -3,19 +3,19 @@
   <h2>share a link</h2>
   <div class='col-sm-11'>
 
-    <div class='row'>
+    <div id="link-title" class='row link-form'>
+      <div class='col-sm-12'>
+        <input type='url' class="form-control" ng-model='postLink' placeholder='paste your link here'>
+      </div>
+    </div>
+
+    <div class='row link-form'>
       <div class="col-sm-12">
         <input class='form-control' type="text" ng-model='postTitle' placeholder="title">
       </div>
     </div>
 
-    <div class='row'>
-      <div class='col-sm-12'>
-        <input type='url' class="form-control" ng-model='postLink' placeholder='link'>
-      </div>
-    </div>
-
-    <div class='row'>
+    <div class='row link-form'>
       <div class='col-sm-12'>
         <textarea class='form-control' rows="6" ng-model='postContent'></textarea>
       </div>
