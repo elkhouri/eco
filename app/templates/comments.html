@@ -1,5 +1,5 @@
 <div class="list-group">
-  <div ng-repeat='(commentId, comment) in post.comments | isFriends' ng-controller='CommentsCtrl'>
+  <div ng-repeat='(commentId, comment) in post.comments' ng-controller='CommentsCtrl'>
     <div class="list-group-item">
       <img ng-src='{{ pic }}'> <strong>{{ comment.user.name }}</strong>
       {{ comment.content }}

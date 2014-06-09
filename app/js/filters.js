@@ -49,6 +49,9 @@ app.filter('isFriends', function(User, Friend){
     }
 
     return _.filter(comments, function(comment){
+      if(!comment.user){
+        return true; 
+      }
       return User.getId() === comment.user.id || Friend.find(comment.user.id);
     });
   };
