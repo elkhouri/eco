@@ -199,10 +199,18 @@ padding-bottom: 20px;
 
 /*===================================
 POST LINKS
-================================  =====*/
+=====================================*/
 .collapse-box {
   height: auto;
 /*  width: 80%;*/
+}
+
+.link-form {
+  margin-bottom: 10px;
+}
+
+#link-title {
+  margin-top: 20px;
 }
 
 .post-buttons .btn{
